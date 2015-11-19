@@ -1,0 +1,35 @@
+# API explorer
+
+## Introduction
+
+This project contains a web application used to explore the the documentation
+of the oVirt API.
+
+## Using with a live server
+
+In the future this application will be part of the server, and available from
+a URL like `/ovirt-engine/api/explorer`, but at the moment it isn't. See
+the instructions bellow to use it locally.
+
+## Using locally
+
+To use the application locally place a `model.json` file containing the
+description of the API in the `app` directory. This file can be obtained
+from a live oVirt server from the `/ovirt-engine/api/model.json` URL.
+
+To simplify things this repository does contain a `model.json` file, but it
+won't probably march the version of the engine that you are using, so consider
+replacing it.
+
+Once you have the `model.json` file in place start a simple web server using
+the following command:
+
+```
+npm start
+```
+
+This assumes that you have the `npm` tool installed. If you don't have it, check
+the documentation [here](https://docs.npmjs.com/getting-started/installing-node).
+
+The web server will bind to port 8000 of the `localhost` address, so to test
+the application just point your browser to <http://localhost:8080/app>.

@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+  <li><a href="#/home">Home</a></li>
+  <li><a href="#/services">Services</a></li>
+</ol>
+
+<h1>Services ({{services.length}})</h1>
+
+<p>
+This page contains the names and summaries of all the services provided
+by the API. Click on the names to see more details.
+</p>
+
+<table class="datatable table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th width="20%">Name</th>
+      <th width="80%">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="service in services | orderBy:'id'">
+      <td><ov-link concept="service"/></td>
+      <td><ov-summary concept="service"/></td>
+    </tr>
+  </tbody>
+</table>

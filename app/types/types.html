@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+  <li><a href="#/home">Home</a></li>
+  <li><a href="#">Types</a></li>
+</ol>
+
+<h1>Types ({{types.length}})</h1>
+
+<p>
+This page contain the complete list of names and summaries of all the
+types used in the API. Click on the type names to see the details.
+</p>
+
+<table class="datatable table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th width="20%">Name</th>
+      <th width="80%">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="type in types | orderBy:'id'">
+      <td><ov-link concept="type"/></td>
+      <td><ov-summary concept="type"/></td>
+    </tr>
+  </tbody>
+</table>

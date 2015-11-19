@@ -1,0 +1,49 @@
+<ol class="breadcrumb">
+  <li><a href="#/home">Home</a></li>
+  <li><a href="#/services">Services</a></li>
+  <li><ov-link concept="service"/></li>
+</ol>
+
+<h2>{{service.name}}</h2>
+
+<div>
+  <ov-doc concept="service"/>
+</div>
+
+<div>
+  <h3>Method summary ({{methods.length}})</h3>
+</div>
+
+<table class="datatable table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th width="20%">Name</th>
+      <th width="80%">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="method in methods | orderBy:'id'">
+      <td>{{method.name}}</td>
+      <td><ov-summary concept="method"/></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Locators summary ({{locators.length}})</h3>
+
+<table class="datatable table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th width="20%">Name</th>
+      <th width="20%">Target</th>
+      <th width="60%">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="locator in locators | orderBy:'id'">
+      <td>{{locator.name}}</td>
+      <td>-</td>
+      <td><ov-summary concept="locator"/></td>
+    </tr>
+  </tbody>
+</table>

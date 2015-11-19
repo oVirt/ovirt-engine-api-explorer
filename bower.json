@@ -1,0 +1,14 @@
+{
+  "name": "ovirt-api-explorer",
+  "description": "oVirt API Explorer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jhernand/ovirt-api-explorer",
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "marked": "~0.3.5",
+    "patternfly": "~2.6.0"
+  }
+}
