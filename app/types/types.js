@@ -15,15 +15,14 @@ limitations under the License.
 */
 
 /**
- * @file This file contains the module that handles type services.
+ * @file This file contains the module that handles services.
  */
 
 "use strict";
 
 var types = angular.module("ovApiDoc.types", ["ngRoute"])
 
-// Populates the "types" property with an array containg all the types of the
-// model:
+// Populates the "types" property with an array containing all the types of the model:
 types.controller("TypesCtrl", [
     "$scope", 
     "model",
@@ -38,22 +37,21 @@ types.controller("TypeCtrl", [
     "$routeParams",
     "model",
     function($scope, $routeParams, model) {
-        var id = $routeParams.id;
-        var type = Concept.find(model.types, id);
+        var typeId = $routeParams.typeId;
+        var type = Concept.find(model.types, typeId);
         $scope.type = type;
         $scope.attributes = type.attributes;
         $scope.links = type.links;
     }
 ]);
 
-// Configures the routes for the list of types and for the details of a
-// specific service:
+// Configures the routes for the list of types and for the details of a specific service:
 types.config(["$routeProvider", function($routeProvider) {
     $routeProvider.when("/types", {
         templateUrl: "types/types.html",
         controller: "TypesCtrl"
     });
-    $routeProvider.when("/types/:id", {
+    $routeProvider.when("/types/:typeId", {
         templateUrl: "types/type.html",
         controller: "TypeCtrl"
     });
