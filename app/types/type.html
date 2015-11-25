@@ -1,50 +1,7 @@
-
 <ol class="breadcrumb">
-  <li><a href="#/home">Home</a></li>
-  <li><a href="#/types">Types</a></li>
-  <li><ov-link concept="type"/></li>
+    <li><a href="#/home">Home</a></li>
+    <li><a href="#/types">Types</a></li>
+    <li><ov-link concept="type"/></li>
 </ol>
 
-<h2>{{type.name}}</h2>
-
-<div>
-  <ov-doc concept="type"/>
-</div>
-
-<h3>Attribute summary ({{attributes.length}})</h3>
-
-<table class="datatable table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th width="20%">Name</th>
-      <th width="20%">Type</th>
-      <th width="80%">Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="attribute in attributes | orderBy:'id'">
-      <td>{{attribute.name}}</td>
-      <td><ov-link concept="attribute.type"/></td>
-      <td><ov-summary concept="attribute"/></td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>Links summary ({{links.length}})</h3>
-
-<table class="datatable table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th width="20%">Name</th>
-      <th width="20%">Type</th>
-      <th width="80%">Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="link in links | orderBy:'id'">
-      <td>{{link.name}}</td>
-      <td><ov-link concept="link.type"/></td>
-      <td><ov-summary concept="link"/></td>
-    </tr>
-  </tbody>
-</table>
+<ng-include src="'types/' + template + '.html'" autoscroll/>

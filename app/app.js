@@ -65,7 +65,7 @@ app.directive("ovLink", function() {
             if (concept instanceof Type) {
                 if (concept instanceof ListType) {
                     var item = concept.element;
-                    html = "<a href='#/types/" + item.id + "'>" + item.name + "</a>[]";
+                    html = "<a href='#/types/" + item.id + "'>" + item.name + "</a>";
                 }
                 else {
                     html = "<a href='#/types/" + concept.id + "'>" + concept.name + "</a>";

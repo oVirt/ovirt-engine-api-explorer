@@ -49,8 +49,10 @@ function analyzeModel(data) {
     // Replace attribute and link type specifications with references to the actual types:
     for (i = 0; i < model.types.length; i++) {
         var type = model.types[i];
-        resolveTypes(type.attributes, model.types);
-        resolveTypes(type.links, model.types);
+        if (type instanceof StructType) {
+            resolveTypes(type.attributes, model.types);
+            resolveTypes(type.links, model.types);
+        }
     }
 
     // Replace method parameter type specifications with references to the actual types:
@@ -66,9 +68,48 @@ function analyzeModel(data) {
 }
 
 function analyzeType(data) {
-    var i;
+    var type;
+    if (data.kind == "primitive") {
+        type = analyzePrimitiveType(data);
+    }
+    else if (data.kind == "enum") {
+        type = analyzeEnumType(data);
+    }
+    else {
+        type = analyzeStructType(data);
+    }
+    return type;
+}
 
-    var type = new Type();
+function analyzePrimitiveType(data) {
+    var type = new PrimitiveType();
+    analyzeCommon(type, data);
+    return type;
+}
+
+function analyzeEnumType(data) {
+    var type = new EnumType();
+    analyzeCommon(type, data);
+
+    // Analyze the list of values:
+    type.values = [];
+    if (data.values) {
+        for (var i = 0; i < data.values.length; i++) {
+            type.values[i] = analyzeEnumValue(data.values[i]);
+        }
+    }
+
+    return type;
+}
+
+function analyzeEnumValue(data) {
+    var value = new EnumValue();
+    analyzeCommon(value, data);
+    return value;
+}
+
+function analyzeStructType(data) {
+    var type = new StructType();
     analyzeCommon(type, data);
 
     // Analyze the list of attributes:

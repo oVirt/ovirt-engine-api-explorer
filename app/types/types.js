@@ -37,11 +37,25 @@ types.controller("TypeCtrl", [
     "$routeParams",
     "model",
     function($scope, $routeParams, model) {
+        // Find the type:
         var typeId = $routeParams.typeId;
         var type = Concept.find(model.types, typeId);
         $scope.type = type;
-        $scope.attributes = type.attributes;
-        $scope.links = type.links;
+
+        // The details of the type and the template used to render it depend on the kind of type, so we need to check
+        // it and act accordingly:
+        if (type instanceof PrimitiveType) {
+            $scope.template = "primitive";
+        }
+        else if (type instanceof EnumType) {
+            $scope.values = type.values;
+            $scope.template = "enum";
+        }
+        else {
+            $scope.attributes = type.attributes;
+            $scope.links = type.links;
+            $scope.template = "struct";
+        }
     }
 ]);
 

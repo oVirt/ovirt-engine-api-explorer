@@ -89,6 +89,28 @@ function PrimitiveType() {
 PrimitiveType.prototype = new Type();
 
 /**
+ * A class that represents an enumerated type.
+ *
+ * @class
+ */
+function EnumType() {
+    Type.call(this);
+}
+
+EnumType.prototype = new Type();
+
+/**
+ * A class that represents a value of an enumerated type.
+ *
+ * @class
+ */
+function EnumValue() {
+    Concept.call(this);
+}
+
+EnumValue.prototype = new Concept();
+
+/**
  * A class that represents an structured type, basically a collection of attributes.
  *
  * @class

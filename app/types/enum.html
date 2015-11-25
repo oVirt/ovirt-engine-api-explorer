@@ -1,0 +1,18 @@
+<h2>{{type.name}} <small>enum</small></h2>
+
+<h3>Values summary ({{values.length}})</h3>
+
+<table class="datatable table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th width="20%">Name</th>
+    <th width="80%">Summary</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="value in values | orderBy:'id'">
+    <td>{{value.name}}</td>
+    <td><ov-summary concept="value"/></td>
+  </tr>
+  </tbody>
+</table>
