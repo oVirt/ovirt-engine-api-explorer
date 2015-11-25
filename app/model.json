@@ -2,6 +2,26 @@
 {
     "types":[
         {
+            "kind":"primitive",
+            "name":"boolean"
+        },
+        {
+            "kind":"primitive",
+            "name":"string"
+        },
+        {
+            "kind":"primitive",
+            "name":"integer"
+        },
+        {
+            "kind":"primitive",
+            "name":"date"
+        },
+        {
+            "kind":"primitive",
+            "name":"decimal"
+        },
+        {
             "kind":"struct",
             "name":"logical-unit",
             "attributes":[
