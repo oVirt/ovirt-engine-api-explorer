@@ -74,8 +74,17 @@ app.directive("ovLink", function() {
             else if (concept instanceof Service) {
                 html = "<a href='#/services/" + concept.id + "'>" + concept.name + "</a>";
             }
+            else if (concept instanceof Method) {
+                html = "<a href='#/services/" + concept.service.id + "/methods/" + concept.id + "'>" + concept.name + "</a>";
+            }
+            else if (concept instanceof Parameter) {
+                html = concept.name;
+            }
+            else if (concept) {
+                html = concept.toString();
+            }
             else {
-                html = "";
+                html = "?";
             }
             element.html(html);
         },
@@ -104,6 +113,32 @@ app.directive("ovDoc", function() {
         link: function(scope, element, attr) {
             var concept = scope.concept;
             element.html(concept.doc);
+        },
+    };
+});
+
+// Renders the direction of a parameter:
+app.directive("ovDirection", function() {
+    return {
+        scope: {
+            concept: "=",
+        },
+        link: function(scope, element, attr) {
+            var concept = scope.concept;
+            var html;
+            if (concept.in && concept.out) {
+                html = "In/Out";
+            }
+            else if (concept.in) {
+                html = "In";
+            }
+            else if (concept.out) {
+                html = "Out";
+            }
+            else {
+                html = "?";
+            }
+            element.html(html);
         },
     };
 });

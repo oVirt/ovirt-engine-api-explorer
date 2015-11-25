@@ -155,6 +155,17 @@ function Method() {
 Method.prototype = new Concept();
 
 /**
+ * A class that represents a method parameter.
+ *
+ * @class
+ */
+function Parameter() {
+    Concept.call(this);
+}
+
+Parameter.prototype = new Concept();
+
+/**
  * A class that represents a service locator.
  *
  * @class

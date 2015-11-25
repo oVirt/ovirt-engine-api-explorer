@@ -46,51 +46,19 @@ function analyzeModel(data) {
         }
     }
 
-    // Replace attribute type specifications with references to the actual types:
+    // Replace attribute and link type specifications with references to the actual types:
     for (i = 0; i < model.types.length; i++) {
-        var attributes = model.types[i].attributes;
-        for (j = 0; j < attributes.length; j++) {
-            var attribute = attributes[j];
-            var spec = attribute.type;
-            if (spec && spec.length >= 2 && spec.substring(spec.length - 2) == "[]") {
-                spec = spec.substring(0, spec.length - 2);
-                var element = Concept.find(model.types, spec);
-                if (element) {
-                    var type = new ListType();
-                    type.element = element;
-                    attribute.type = type;
-                }
-            }
-            else {
-                var type = Concept.find(model.types, spec);
-                if (type) {
-                    attribute.type = type;
-                }
-            }
-        }
+        var type = model.types[i];
+        resolveTypes(type.attributes, model.types);
+        resolveTypes(type.links, model.types);
     }
 
-    // Replace link type specifications with references to the actual types:
-    for (i = 0; i < model.types.length; i++) {
-        var links = model.types[i].links;
-        for (j = 0; j < links.length; j++) {
-            var link = links[j];
-            var spec = link.type;
-            if (spec && spec.length >= 2 && spec.substring(spec.length - 2) == "[]") {
-                spec = spec.substring(0, spec.length - 2);
-                var element = Concept.find(model.types, spec);
-                if (element) {
-                    var type = new ListType();
-                    type.element = element;
-                    link.type = type;
-                }
-            }
-            else {
-                var type = Concept.find(model.types, spec);
-                if (type) {
-                    link.type = type;
-                }
-            }
+    // Replace method parameter type specifications with references to the actual types:
+    for (i = 0; i < model.services.length; i++) {
+        var service = model.services[i];
+        for (j = 0; j < service.methods.length; j++) {
+            var method = service.methods[j];
+            resolveTypes(method.parameters, model.types);
         }
     }
 
@@ -157,6 +125,7 @@ function analyzeService(data) {
     if (data.methods) {
         for (i = 0; i < data.methods.length; i++) {
             service.methods[i] = analyzeMethod(data.methods[i]);
+            service.methods[i].service = service;
         }
     }
 
@@ -174,7 +143,33 @@ function analyzeService(data) {
 function analyzeMethod(data) {
     var method = new Method();
     analyzeCommon(method, data);
+
+    // Analyze the list of parameters:
+    method.parameters = [];
+    if (data.parameters) {
+        for (i = 0; i < data.parameters.length; i++) {
+            method.parameters[i] = analyzeParameter(data.parameters[i]);
+            method.parameters[i].method = method;
+        }
+    }
+
     return method;
+}
+
+function analyzeParameter(data) {
+    var parameter = new Parameter();
+    analyzeCommon(parameter, data);
+
+    // Copy the direction flags:
+    parameter.in = data.in;
+    parameter.out = data.out;
+
+    // Save the type specification, which will be later replaced by the reference to the corresponding type object:
+    if (data.type) {
+        parameter.type = data.type;
+    }
+
+    return parameter;
 }
 
 function analyzeLocator(data) {
@@ -217,5 +212,42 @@ function analyzeDoc(concept, data) {
     else {
         concept.summary = "";
         concept.doc = "";
+    }
+}
+
+/**
+ * Iterates an array of concepts, looking for references to types (attributes named `type`) and replaces those that
+ * are strings with the reference to the type object.
+ *
+ * @param {Concept[]} concepts - An array of concepts, that may have references to types.
+ * @param {Type[]} types - An array containing all the valid types.
+ */
+function resolveTypes(concepts, types) {
+    for (var i = 0; i < concepts.length; i++) {
+        resolveType(concepts[i], types);
+    }
+}
+
+/**
+ * Replaces type specifications with references to the type objects.
+ *
+ * @param {Concept} object - The object that may contain `type` attributes referencing types.
+ * @param {Type[]} types - An array containing the valid types.
+ */
+function resolveType(concept, types) {
+    var spec = concept.type;
+    var type;
+    var element;
+    if (spec) {
+        if (spec.length >= 2 && spec.substring(spec.length - 2) == "[]") {
+            spec = spec.substring(0, spec.length - 2);
+            element = Concept.find(types, spec);
+            type = new ListType();
+            type.element = element;
+        }
+        else {
+            type = Concept.find(types, spec);
+        }
+        concept.type = type;
     }
 }

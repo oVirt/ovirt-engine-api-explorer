@@ -23,7 +23,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="method in methods | orderBy:'id'">
-      <td>{{method.name}}</td>
+      <td><ov-link concept="method"/></td>
       <td><ov-summary concept="method"/></td>
     </tr>
   </tbody>

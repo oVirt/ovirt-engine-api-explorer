@@ -28,29 +28,49 @@ services.controller("ServicesCtrl", ["$scope", "model", function($scope, model) 
     $scope.services = model.services;
 }]);
 
-// Populates the scope with the service corresponding to the given parameter:
+// Populates the scope with the service corresponding to the given parameters:
 services.controller("ServiceCtrl", [
     "$scope",
     "$routeParams",
     "model",
     function($scope, $routeParams, model) {
-        var id = $routeParams.id;
-        var service = Concept.find(model.services, id);
+        var serviceId = $routeParams.serviceId;
+        var service = Concept.find(model.services, serviceId);
         $scope.service = service;
         $scope.methods = service.methods;
         $scope.locators = service.locators;
     }
 ]);
 
+// Populates the scope with the method corresponding to the given parameters:
+services.controller("MethodCtrl", [
+    "$scope",
+    "$routeParams",
+    "model",
+    function($scope, $routeParams, model) {
+        var serviceId = $routeParams.serviceId;
+        var methodId = $routeParams.methodId;
+        var service = Concept.find(model.services, serviceId);
+        var method = Concept.find(service.methods, methodId);
+        $scope.service = service;
+        $scope.method = method;
+        $scope.parameters = method.parameters;
+    }
+]);
+
 // Configure the routes for the list of services and for the details of
-// a specific service:
+// a service or method:
 services.config(["$routeProvider", function($routeProvider) {
+    $routeProvider.when("/services/:serviceId/methods/:methodId", {
+        templateUrl: "services/method.html",
+        controller: "MethodCtrl"
+    });
+    $routeProvider.when("/services/:serviceId", {
+        templateUrl: "services/service.html",
+        controller: "ServiceCtrl"
+    });
     $routeProvider.when("/services", {
         templateUrl: "services/services.html",
         controller: "ServicesCtrl"
-    });
-    $routeProvider.when("/services/:id", {
-        templateUrl: "services/service.html",
-        controller: "ServiceCtrl"
     });
 }])
