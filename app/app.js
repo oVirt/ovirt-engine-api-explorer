@@ -42,7 +42,7 @@ app.factory("model", [function() {
     // Download the model from the server:
     var request = new XMLHttpRequest();
     var model;
-    request.open("GET", "http://localhost:8000/app/model.json", false);
+    request.open("GET", "model.json", false);
     request.send(null);
     if (request.status == 200) {
         var data = angular.fromJson(request.response);
