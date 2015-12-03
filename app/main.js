@@ -99,9 +99,9 @@ app.directive("ovLink", function() {
             else if (concept instanceof Parameter) {
                 html =
                     "<a href='#" +
-                    "/services/" + concept.method.service.id + 
-                    "/methods/" + concept.method.id + 
-                    "/parameters/" + concept.id + 
+                    "/services/" + concept.method.service.id +
+                    "/methods/" + concept.method.id +
+                    "/parameters/" + concept.id +
                     "'>" + concept.name + "</a>";
             }
             else if (concept) {
@@ -136,7 +136,60 @@ app.directive("ovDoc", function() {
         },
         link: function(scope, element, attr) {
             var concept = scope.concept;
-            element.html(concept.doc);
+
+            // This is really ugly, the HTML should be generated using a template:
+            element.html(
+                "<div>" +
+                "<div id='viewer-panel'><div id='viewer-text'></div></div>" +
+                "<div id='editor-panel' class='hidden'>" +
+                "<div class='alert alert-warning'>" +
+                "<span class='pficon pficon-warning-triangle-o'></span>" +
+                "<strong>Warning!</strong> " +
+                "Changes made with this editor aren't saved in any place, " +
+                "it is just a test of the mechanism that will be added in the future. " +
+                "In order to do real edits you will have to checkout the source code from " +
+                "<a href='https://gerrit.ovirt.org'>gerrit</a> and submit a patch." +
+                "</div>" +
+                "<textarea id='editor-text' class='form-control' rows='10'></textarea>" +
+                "</div>" +
+                "<div class='btn-group btn-group-xs' role='group'>" +
+                "<button type='button' class='btn btn-default' id='view-button'>View</button>" +
+                "<button type='button' class='btn btn-default' id='edit-button'>Edit</button>" +
+                "</div>" +
+                "</div>"
+            );
+
+            // Find the panels:
+            var viewerPanel = element.find("#viewer-panel");
+            var editorPanel = element.find("#editor-panel");
+
+            // Find the containers for the HTML and plain text:
+            var viewerText = element.find("#viewer-text");
+            var editorText = element.find("#editor-text");
+            viewerText.html(concept.html);
+            editorText.val(concept.doc);
+
+            // Find the buttons:
+            var viewButton = element.find("#view-button");
+            var editButton = element.find("#edit-button");
+
+            viewButton.click(function() {
+                // Take the text from the editor, convert it to HTML and put
+                // it into the viewer:
+                var text = editorText.val();
+                var html = marked(text);
+                viewerText.html(html);
+
+                // Hide the editor and show the viewer:
+                editorPanel.addClass("hidden");
+                viewerPanel.removeClass("hidden");
+            });
+
+            editButton.click(function() {
+                // Hide the viewer and show the editor:
+                viewerPanel.addClass("hidden");
+                editorPanel.removeClass("hidden");
+            });
         },
     };
 });

@@ -241,18 +241,20 @@ function analyzeName(concept, data) {
 
 function analyzeDoc(concept, data) {
     if (data.doc) {
-        concept.doc = marked(data.doc);
-        var i = concept.doc.indexOf(".");
+        concept.doc = data.doc;
+        concept.html = marked(data.doc);
+        var i = concept.html.indexOf(".");
         if (i != -1) {
-            concept.summary = concept.doc.substring(0, i + 1);
+            concept.summary = concept.html.substring(0, i + 1);
         }
         else {
-            concept.summary = concept.doc;
+            concept.summary = concept.html;
         }
     }
     else {
         concept.summary = "";
         concept.doc = "";
+        concept.html = "";
     }
 }
 
