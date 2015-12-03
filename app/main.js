@@ -20,6 +20,21 @@ limitations under the License.
 
 "use strict";
 
+// Configure the Markdown processor so that it uses Highlihght.js for
+// code highlighting:
+marked.setOptions({
+  highlight: function(code, lang) {
+    var result;
+    if (lang) {
+        result = hljs.highlight(lang, code).value;
+    }
+    else {
+        result = code;
+    }
+    return result;
+  }
+});
+
 // Declare application level module and make it depends on views
 // and components:
 var app = angular.module("ovApiDoc", [
