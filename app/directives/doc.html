@@ -1,8 +1,8 @@
 <!-- The viewer: -->
-<div ng-show="!editing" ng-bind-html="concept.html"></div>
+<div ng-if="!editing" ng-bind-html="concept.html"></div>
 
 <!-- The editor: -->
-<div ng-show="editing">
+<div ng-if="editing">
 
   <div class="alert alert-warning">
     <span class="pficon pficon-warning-triangle-o"></span>
