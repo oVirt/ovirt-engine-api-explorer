@@ -8,6 +8,7 @@
   "dependencies": {
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
+    "angular-sanitize": "~1.4.8",
     "marked": "~0.3.5",
     "patternfly": "~2.6.0",
     "highlightjs": "~8.9.1"
