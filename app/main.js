@@ -75,10 +75,19 @@ app.directive("ovLink", function() {
                 html = "<a href='#/services/" + concept.id + "'>" + concept.name + "</a>";
             }
             else if (concept instanceof Method) {
-                html = "<a href='#/services/" + concept.service.id + "/methods/" + concept.id + "'>" + concept.name + "</a>";
+                html =
+                    "<a href='#" +
+                    "/services/" + concept.service.id +
+                    "/methods/" + concept.id +
+                    "'>" + concept.name + "</a>";
             }
             else if (concept instanceof Parameter) {
-                html = concept.name;
+                html =
+                    "<a href='#" +
+                    "/services/" + concept.method.service.id + 
+                    "/methods/" + concept.method.id + 
+                    "/parameters/" + concept.id + 
+                    "'>" + concept.name + "</a>";
             }
             else if (concept) {
                 html = concept.toString();

@@ -58,9 +58,31 @@ services.controller("MethodCtrl", [
     }
 ]);
 
+// Populates the scope with the parameter corresponding to the given parameters:
+services.controller("ParameterCtrl", [
+    "$scope",
+    "$routeParams",
+    "model",
+    function($scope, $routeParams, model) {
+        var serviceId = $routeParams.serviceId;
+        var methodId = $routeParams.methodId;
+        var parameterId = $routeParams.parameterId;
+        var service = Concept.find(model.services, serviceId);
+        var method = Concept.find(service.methods, methodId);
+        var parameter = Concept.find(method.parameters, parameterId);
+        $scope.service = service;
+        $scope.method = method;
+        $scope.parameter = parameter;
+    }
+]);
+
 // Configure the routes for the list of services and for the details of
 // a service or method:
 services.config(["$routeProvider", function($routeProvider) {
+    $routeProvider.when("/services/:serviceId/methods/:methodId/parameters/:parameterId", {
+        templateUrl: "services/parameter.html",
+        controller: "ParameterCtrl"
+    });
     $routeProvider.when("/services/:serviceId/methods/:methodId", {
         templateUrl: "services/method.html",
         controller: "MethodCtrl"
