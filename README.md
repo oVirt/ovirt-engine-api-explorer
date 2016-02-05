@@ -17,10 +17,6 @@ To use the application locally place a `model.json` file containing the
 description of the API in the `app` directory. This file can be obtained
 from a live oVirt server from the `/ovirt-engine/api/model.json` URL.
 
-To simplify things this repository does contain a `model.json` file, but it
-won't probably march the version of the engine that you are using, so consider
-replacing it.
-
 Once you have the `model.json` file in place start a simple web server using
 the following command:
 
