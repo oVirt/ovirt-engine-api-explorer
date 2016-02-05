@@ -2,7 +2,7 @@
   "name": "ovirt-api-explorer",
   "description": "oVirt API Explorer",
   "version": "0.0.0",
-  "homepage": "https://github.com/jhernand/ovirt-api-explorer",
+  "homepage": "https://github.com/oVirt/ovirt-api-explorer",
   "license": "Apache-2.0",
   "private": true,
   "dependencies": {
