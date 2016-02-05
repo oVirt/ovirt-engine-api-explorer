@@ -1,0 +1,34 @@
+Name: ovirt-engine-api-explorer
+Summary: oVirt Engine API Explorer
+Version: @RPM_VERSION@
+Release: @RPM_RELEASE@
+License: ASL 2.0
+URL: http://ovirt.org
+Source: @TAR_FILE@
+
+BuildArch: noarch
+
+Requires: patternfly1
+
+%description
+This package contains the oVirt Engine API explorer.
+
+%prep
+
+# Unpack the source:
+%setup -q
+
+%install
+
+# Install the files:
+mkdir -p %{buildroot}%{_datadir}/%{name}
+cp -r app/* %{buildroot}%{_datadir}/%{name}
+
+%files
+%{_datadir}/%{name}
+%doc README.md
+%license LICENSE.txt
+
+%changelog
+* Fri Feb 5 2016 Juan Hernandez <juan.hernandez@redhat.com> - 0.0.0
+- Initial packaging.
