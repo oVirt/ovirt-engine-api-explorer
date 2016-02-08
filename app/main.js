@@ -20,21 +20,6 @@ limitations under the License.
 
 "use strict";
 
-// Configure the Markdown processor so that it uses Highlihght.js for
-// code highlighting:
-marked.setOptions({
-  highlight: function(code, lang) {
-    var result;
-    if (lang) {
-        result = hljs.highlight(lang, code).value;
-    }
-    else {
-        result = code;
-    }
-    return result;
-  }
-});
-
 // Declare application level module and make it depends on views
 // and components:
 var app = angular.module("ovApiDoc", [
@@ -129,24 +114,16 @@ app.directive("ovSummary", function() {
 // Renders the description of a model concept:
 app.directive("ovDoc", function() {
     return {
+        restrict: "E",
         scope: {
             concept: "=",
         },
-        controller: function($scope) {
-          // Set a flag in the scope indicating if the editor is active:
-          $scope.editing = false;
-
-          // Add functions to the context that can be used to switch between view
-          // and editor modes:
-          $scope.view = function view() {
-              $scope.concept.html = marked($scope.concept.doc);
-              $scope.editing = false;
-          };
-          $scope.edit = function edit() {
-              $scope.editing = true;
-          };
+        link: function($scope, element) {
+            element.html($scope.concept.html);
+            $('pre.highlightjs').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
         },
-        templateUrl: "directives/doc.html",
     };
 });
 

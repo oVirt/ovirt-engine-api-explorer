@@ -242,7 +242,7 @@ function analyzeName(concept, data) {
 function analyzeDoc(concept, data) {
     if (data.doc) {
         concept.doc = data.doc;
-        concept.html = marked(data.doc);
+        concept.html = data.html;
         var i = concept.html.indexOf(".");
         if (i != -1) {
             concept.summary = concept.html.substring(0, i + 1);
