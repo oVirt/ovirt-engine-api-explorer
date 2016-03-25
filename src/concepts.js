@@ -25,7 +25,7 @@ limitations under the License.
  *
  * @class
  */
-function Concept() {
+export function Concept() {
 }
 
 /**
@@ -71,7 +71,7 @@ Concept.find = function(array, id) {
  *
  * @class
  */
-function Type() {
+export function Type() {
     Concept.call(this);
 }
 
@@ -82,7 +82,7 @@ Type.prototype = new Concept();
  *
  * @class
  */
-function PrimitiveType() {
+export function PrimitiveType() {
     Type.call(this);
 }
 
@@ -93,7 +93,7 @@ PrimitiveType.prototype = new Type();
  *
  * @class
  */
-function EnumType() {
+export function EnumType() {
     Type.call(this);
 }
 
@@ -104,7 +104,7 @@ EnumType.prototype = new Type();
  *
  * @class
  */
-function EnumValue() {
+export function EnumValue() {
     Concept.call(this);
 }
 
@@ -115,7 +115,7 @@ EnumValue.prototype = new Concept();
  *
  * @class
  */
-function StructType() {
+export function StructType() {
     Type.call(this);
 }
 
@@ -126,7 +126,7 @@ StructType.prototype = new Type();
  *
  * @class
  */
-function ListType() {
+export function ListType() {
     Type.call(this);
 }
 
@@ -137,7 +137,7 @@ ListType.prototype = new Type();
  *
  * @class
  */
-function Service() {
+export function Service() {
     Concept.call(this);
 }
 
@@ -148,7 +148,7 @@ Service.prototype = new Concept();
  *
  * @class
  */
-function Attribute() {
+export function Attribute() {
     Concept.call(this);
 }
 
@@ -159,7 +159,7 @@ Attribute.prototype = new Concept();
  *
  * @class
  */
-function Link() {
+export function Link() {
     Concept.call(this);
 }
 
@@ -170,7 +170,7 @@ Link.prototype = new Concept();
  *
  * @class
  */
-function Method() {
+export function Method() {
     Concept.call(this);
 }
 
@@ -181,7 +181,7 @@ Method.prototype = new Concept();
  *
  * @class
  */
-function Parameter() {
+export function Parameter() {
     Concept.call(this);
 }
 
@@ -192,7 +192,7 @@ Parameter.prototype = new Concept();
  *
  * @class
  */
-function Locator() {
+export function Locator() {
     Concept.call(this);
 }
 
@@ -203,5 +203,5 @@ Locator.prototype = new Concept();
  *
  * @class
  */
-function Model() {
+export function Model() {
 }

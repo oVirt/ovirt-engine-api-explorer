@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-
-<html lang="en" ng-app="ovApiDoc" class="no-js">
+<html>
 
 <head>
-
+  <meta charset="utf-8"/>
   <title>oVirt API Explorer</title>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- PatternFly styles: -->
-  <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.min.css"/>
-  <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.min.css"/>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.3.1/css/patternfly.min.css"/>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.3.1/css/patternfly-additions.min.css"/>
 
   <!-- Highlight.js styles: -->
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/idea.min.css">
@@ -22,34 +17,22 @@
   <link rel="stylesheet" href="main.css">
 
   <!-- jQuery: -->
-  <script src="bower_components/patternfly/components/jquery/dist/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
   <!-- Bootstrap JS: -->
-  <script src="bower_components/patternfly/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+  <!-- Data tables: -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.11/js/jquery.dataTables.min.js"></script>
 
   <!-- PatternFly custom components: -->
-  <script src="bower_components/patternfly/dist/js/patternfly.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.3.1/js/patternfly.min.js"></script>
 
   <!-- Highlight.js: -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
-
-  <!-- AngularJS: -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-sanitize.min.js"></script>
-
-  <!-- Application specific scripts: -->
-  <script src="concepts.js"></script>
-  <script src="analyzer.js"></script>
-  <script src="main.js"></script>
-  <script src="home/home.js"></script>
-  <script src="types/types.js"></script>
-  <script src="services/services.js"></script>
-
 </head>
 
 <body>
-
   <nav class="navbar navbar-default navbar-pf" role="navigation">
 
     <div class="navbar-header">
@@ -82,13 +65,15 @@
       </div>
 
       <!-- Content column: -->
-      <div class="col-xs-10">
-        <div ng-view></div>
+      <div class="col-xs-10" id="content">
       </div>
 
     </div>
 
   </div>
+
+  <!-- Load the application: -->
+  <script src="index.js"></script>
 
 </body>
 

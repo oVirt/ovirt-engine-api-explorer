@@ -19,6 +19,8 @@ limitations under the License.
  * model classes, like `Type`, `Service`, etc.
  */
 
+import * as concepts from 'concepts'
+
 /**
  * Analyzes the given JSON data as returned by the`/ovirt-engine/api/model.json` resource and returns a `Model` object
  * containing the same data.
@@ -26,8 +28,8 @@ limitations under the License.
  * @param {Object} - A JSON object containing the model description.
  * @param {Model} - A `Model` object containg the same data.
  */
-function analyzeModel(data) {
-    var model = new Model();
+export function analyzeModel(data) {
+    var model = new concepts.Model();
     var i, j;
 
     // Analyze the list of types:
@@ -49,7 +51,7 @@ function analyzeModel(data) {
     // Replace attribute and link type specifications with references to the actual types:
     for (i = 0; i < model.types.length; i++) {
         var type = model.types[i];
-        if (type instanceof StructType) {
+        if (type instanceof concepts.StructType) {
             resolveTypes(type.attributes, model.types);
             resolveTypes(type.links, model.types);
         }
@@ -82,19 +84,20 @@ function analyzeType(data) {
 }
 
 function analyzePrimitiveType(data) {
-    var type = new PrimitiveType();
+    var type = new concepts.PrimitiveType();
     analyzeCommon(type, data);
     return type;
 }
 
 function analyzeEnumType(data) {
-    var type = new EnumType();
+    var i;
+    var type = new concepts.EnumType();
     analyzeCommon(type, data);
 
     // Analyze the list of values:
     type.values = [];
     if (data.values) {
-        for (var i = 0; i < data.values.length; i++) {
+        for (i = 0; i < data.values.length; i++) {
             type.values[i] = analyzeEnumValue(data.values[i]);
         }
     }
@@ -103,19 +106,20 @@ function analyzeEnumType(data) {
 }
 
 function analyzeEnumValue(data) {
-    var value = new EnumValue();
+    var value = new concepts.EnumValue();
     analyzeCommon(value, data);
     return value;
 }
 
 function analyzeStructType(data) {
-    var type = new StructType();
+    var i;
+    var type = new concepts.StructType();
     analyzeCommon(type, data);
 
     // Analyze the list of attributes:
     type.attributes = [];
     if (data.attributes) {
-        for (i = 0; i < data.attributes.length; i++) {
+        for (var i = 0; i < data.attributes.length; i++) {
             type.attributes[i] = analyzeAttribute(data.attributes[i]);
         }
     }
@@ -132,7 +136,7 @@ function analyzeStructType(data) {
 }
 
 function analyzeAttribute(data) {
-    var attribute = new Attribute();
+    var attribute = new concepts.Attribute();
     analyzeCommon(attribute, data);
 
     // Save the type specification, which will be later replaced by the reference to the corresponding type object:
@@ -144,7 +148,7 @@ function analyzeAttribute(data) {
 }
 
 function analyzeLink(data) {
-    var link = new Link();
+    var link = new concepts.Link();
     analyzeCommon(link, data);
 
     // Save the type specification, which will be later replaced by the reference to the corresponding type object:
@@ -157,8 +161,7 @@ function analyzeLink(data) {
 
 function analyzeService(data) {
     var i;
-
-    var service = new Service();
+    var service = new concepts.Service();
     analyzeCommon(service, data);
 
     // Analyze the list of methods:
@@ -182,7 +185,8 @@ function analyzeService(data) {
 }
 
 function analyzeMethod(data) {
-    var method = new Method();
+    var i;
+    var method = new concepts.Method();
     analyzeCommon(method, data);
 
     // Analyze the list of parameters:
@@ -198,7 +202,7 @@ function analyzeMethod(data) {
 }
 
 function analyzeParameter(data) {
-    var parameter = new Parameter();
+    var parameter = new concepts.Parameter();
     analyzeCommon(parameter, data);
 
     // Copy the direction flags:
@@ -214,7 +218,7 @@ function analyzeParameter(data) {
 }
 
 function analyzeLocator(data) {
-    var locator = new Locator();
+    var locator = new concepts.Locator();
     analyzeCommon(locator, data);
     return locator;
 }
@@ -284,12 +288,12 @@ function resolveType(concept, types) {
     if (spec) {
         if (spec.length >= 2 && spec.substring(spec.length - 2) == "[]") {
             spec = spec.substring(0, spec.length - 2);
-            element = Concept.find(types, spec);
-            type = new ListType();
+            element = concepts.Concept.find(types, spec);
+            type = new concepts.ListType();
             type.element = element;
         }
         else {
-            type = Concept.find(types, spec);
+            type = concepts.Concept.find(types, spec);
         }
         concept.type = type;
     }

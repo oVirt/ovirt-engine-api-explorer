@@ -1,7 +1,6 @@
 *.iml
 *.log
 .idea
-bower_components/
 node_modules/
-out/
-tmp
+static/index.js
+static/model.json
