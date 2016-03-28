@@ -8,6 +8,9 @@ Source: @TAR_FILE@
 
 BuildArch: noarch
 
+BuildRequires: ovirt-engine-nodejs
+BuildRequires: ovirt-engine-nodejs-modules
+
 Requires: patternfly1
 
 %description
@@ -18,15 +21,25 @@ This package contains the oVirt Engine API explorer.
 # Unpack the source:
 %setup -q
 
+# Make sure that we use our Node.js installation:
+export PATH="%{_datadir}/ovirt-engine-nodejs/bin:${PATH}"
+
+# Copy the Node.js dependencies to the local "node_modules" directory:
+ln -s "%{_datadir}/ovirt-engine-nodejs-modules/node_modules"
+export PATH="./node_modules/.bin:${PATH}"
+
+# Build the application:
+webpack
+
 %install
 
 # Install the files:
 mkdir -p %{buildroot}%{_datadir}/%{name}
-cp -r app/* %{buildroot}%{_datadir}/%{name}
+cp -r static/* %{buildroot}%{_datadir}/%{name}
 
 %files
 %{_datadir}/%{name}
-%doc README.md
+%doc README.adoc
 %license LICENSE.txt
 
 %changelog
