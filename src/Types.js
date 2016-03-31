@@ -14,26 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Link from 'Link'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-const Row = React.createClass({
-  render() {
-    var type = this.props.type;
-    return (
-      <tr>
-        <td><Link concept={type}/></td>
-        <td><Summary concept={type}/></td>
-      </tr>
-    )
-  }
-})
+function Row ({ type }) {
+  return (
+    <tr>
+      <td><Link concept={type}/></td>
+      <td><Summary concept={type}/></td>
+    </tr>
+  )
+}
 
-export default React.createClass({
-  render() {
+export default class Types extends Component {
+  render () {
     // Create the list of rows:
     var rows = []
     var types = document.model.types.slice(0);
@@ -69,12 +66,12 @@ export default React.createClass({
       </table>
 
     </div>
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount () {
     var element = ReactDOM.findDOMNode(this)
     $('.datatable', element).DataTable()
-  },
-})
+  }
+}
 
 

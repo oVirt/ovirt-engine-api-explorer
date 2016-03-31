@@ -96,30 +96,27 @@ const Locators = React.createClass({
   }
 })
 
-export default React.createClass({
-  render() {
-    var serviceId = this.props.params.serviceId
-    var services = document.model.services
-    var service = concepts.Concept.find(services, serviceId)
-    var methods = service.methods
-    var locators = service.locators
-    return (
-      <div>
-        <ol className='breadcrumb'>
-          <li><a href='#/home'>Home</a></li>
-          <li><a href='#/services'>Services</a></li>
-          <li><Link concept={service}/></li>
-        </ol>
+export default function Service ({ params: { serviceId } }) {
+  var services = document.model.services
+  var service = concepts.Concept.find(services, serviceId)
+  var methods = service.methods
+  var locators = service.locators
+  return (
+    <div>
+      <ol className='breadcrumb'>
+        <li><a href='#/home'>Home</a></li>
+        <li><a href='#/services'>Services</a></li>
+        <li><Link concept={service}/></li>
+      </ol>
 
-        <h2>{service.name}</h2>
-        <Doc concept={service}/>
+      <h2>{service.name}</h2>
+      <Doc concept={service}/>
 
-        <h3>Method summary ({methods.length})</h3>
-        <Methods methods={methods}/>
+      <h3>Method summary ({methods.length})</h3>
+      <Methods methods={methods}/>
 
-        <h3>Locators summary ({locators.length})</h3>
-        <Locators locators={locators}/>
-      </div>
-    )
-  }
-})
+      <h3>Locators summary ({locators.length})</h3>
+      <Locators locators={locators}/>
+    </div>
+  )
+}

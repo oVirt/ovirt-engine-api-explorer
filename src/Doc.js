@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-export default React.createClass({
-  render: function() {
+export default class Doc extends Component {
+  render () {
     return <div/>
-  },
-  componentDidMount: function() {
+  }
+  componentDidMount () {
     var html = this.props.concept.html
     var element = ReactDOM.findDOMNode(this)
     $(element).html(html)
@@ -29,4 +29,4 @@ export default React.createClass({
       hljs.highlightBlock(value)
     })
   }
-})
+}

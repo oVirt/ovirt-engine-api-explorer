@@ -20,21 +20,19 @@ limitations under the License.
 
 import React from 'react'
 
-export default React.createClass({
-  render() {
-    return (
-      <div>
-        <ol className='breadcrumb'>
-          <li><a href='#'>Home</a></li>
-        </ol>
-        <div className='home'>
-          <h1>Home</h1>
-          <p>
-            This will be the place for general documentation about
-            the API.
-          </p>
-        </div>
+export default function Home () {
+  return (
+    <div>
+      <ol className='breadcrumb'>
+        <li><a href='#'>Home</a></li>
+      </ol>
+      <div className='home'>
+        <h1>Home</h1>
+        <p>
+          This will be the place for general documentation about
+          the API.
+        </p>
       </div>
-    )
-  }
-})
+    </div>
+  )
+}

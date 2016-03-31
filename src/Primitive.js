@@ -17,14 +17,11 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 
-export default React.createClass({
-  render() {
-    var type = this.props.type
-    return (
-      <div>
-        <h2>{type.name} <small>primitive</small></h2>
-        <Doc concept={type}/>
-      </div>
-    )
-  }
-})
+export default function Primitive ({ type }) {
+  return (
+    <div>
+      <h2>{type.name} <small>primitive</small></h2>
+      <Doc concept={type}/>
+    </div>
+  )
+}

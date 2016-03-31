@@ -17,44 +17,41 @@ limitations under the License.
 import React from 'react'
 import * as concepts from 'concepts'
 
-export default React.createClass({
-  render() {
-    var concept = this.props.concept
-    var text = concept.name
-    var href
-    if (concept instanceof concepts.Type) {
-      if (concept instanceof concepts.ListType) {
-        var item = concept.element
-        href = '#/types/' + item.id
-        text = item.name + '[]'
-      }
-      else {
-        href = '#/types/' + concept.id
-      }
-    }
-    else if (concept instanceof concepts.Service) {
-      href = '#/services/' + concept.id
-    }
-    else if (concept instanceof concepts.Method) {
-      href =
-        '#/services/' + concept.service.id +
-        '/methods/' + concept.id
-    }
-    else if (concept instanceof concepts.Parameter) {
-      href =
-        '#/services/' + concept.method.service.id +
-        '/methods/' + concept.method.id +
-        '/parameters/' + concept.id
-    }
-    else if (concept) {
-      text = concept.toString();
+export default function Link ({ concept }) {
+  var text = concept.name
+  var href
+  if (concept instanceof concepts.Type) {
+    if (concept instanceof concepts.ListType) {
+      var item = concept.element
+      href = '#/types/' + item.id
+      text = item.name + '[]'
     }
     else {
-      text = "?"
+      href = '#/types/' + concept.id
     }
-    if (href) {
-      return <a href={href}>{text}</a>
-    }
-    return <span>{text}</span>
   }
-})
+  else if (concept instanceof concepts.Service) {
+    href = '#/services/' + concept.id
+  }
+  else if (concept instanceof concepts.Method) {
+    href =
+      '#/services/' + concept.service.id +
+      '/methods/' + concept.id
+  }
+  else if (concept instanceof concepts.Parameter) {
+    href =
+      '#/services/' + concept.method.service.id +
+      '/methods/' + concept.method.id +
+      '/parameters/' + concept.id
+  }
+  else if (concept) {
+    text = concept.toString();
+  }
+  else {
+    text = "?"
+  }
+  if (href) {
+    return <a href={href}>{text}</a>
+  }
+  return <span>{text}</span>
+}

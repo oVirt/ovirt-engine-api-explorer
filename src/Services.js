@@ -14,26 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Link from 'Link'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-const Row = React.createClass({
-  render() {
-    var service = this.props.service;
-    return (
-      <tr>
-        <td><Link concept={service}/></td>
-        <td><Summary concept={service}/></td>
-      </tr>
-    )
-  }
-})
+function Row ({ service }) {
+  return (
+    <tr>
+      <td><Link concept={service}/></td>
+      <td><Summary concept={service}/></td>
+    </tr>
+  )
+}
 
-export default React.createClass({
-  render() {
+export default class Services extends Component {
+  render () {
     // Create the list of rows:
     var rows = []
     var services = document.model.services.slice(0)
@@ -69,10 +66,10 @@ export default React.createClass({
       </table>
 
     </div>
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount () {
     var element = ReactDOM.findDOMNode(this)
     $('.datatable', element).DataTable()
-  },
-})
+  }
+}

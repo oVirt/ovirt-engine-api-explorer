@@ -19,54 +19,45 @@ import Doc from 'Doc'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-const Value = React.createClass({
-  render() {
-    var value = this.props.value
-    return (
-      <tr>
-        <td>{value.name}</td>
-        <td><Summary concept={value}/></td>
-      </tr>
-    )
-  }
-})
+function Value ({ value }) {
+  return (
+    <tr>
+      <td>{value.name}</td>
+      <td><Summary concept={value}/></td>
+    </tr>
+  )
+}
 
-const Values = React.createClass({
-  render() {
-    var type = this.props.type
-    var values = type.values.slice(0)
-    values.sort(concepts.Concept.compare)
-    var rows = []
-    for (var i = 0; i < values.length; i++) {
-      var value = values[i]
-      rows.push(<Value key={value.id} value={value}/>)
-    }
-    return (
-      <div>
-        <h3>Values summary ({values.length})</h3>
-        <table className='datatable table table-striped table-bordered'>
-          <thead>
-            <tr>
-              <th width='20%'>Name</th>
-              <th width='80%'>Summary</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    )
+function Values ({ type }) {
+  var values = type.values.slice(0)
+  values.sort(concepts.Concept.compare)
+  var rows = []
+  for (var i = 0; i < values.length; i++) {
+    var value = values[i]
+    rows.push(<Value key={value.id} value={value}/>)
   }
-})
+  return (
+    <div>
+      <h3>Values summary ({values.length})</h3>
+      <table className='datatable table table-striped table-bordered'>
+        <thead>
+          <tr>
+            <th width='20%'>Name</th>
+            <th width='80%'>Summary</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
+  )
+}
 
-export default React.createClass({
-  render() {
-    var type = this.props.type
-    return (
-      <div>
-        <h2>{type.name} <small>enum</small></h2>
-        <Doc concept={type}/>
-        <Values type={type}/>
-      </div>
-    )
-  }
-})
+export default function Enum ({ type }) {
+  return (
+    <div>
+      <h2>{type.name} <small>enum</small></h2>
+      <Doc concept={type}/>
+      <Values type={type}/>
+    </div>
+  )
+}

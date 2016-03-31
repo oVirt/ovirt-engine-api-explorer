@@ -22,30 +22,27 @@ import Primitive from 'Primitive'
 import Struct from 'Struct'
 import * as concepts from 'concepts'
 
-export default React.createClass({
-  render() {
-    var typeId = this.props.params.typeId
-    var types = document.model.types
-    var type = concepts.Concept.find(types, typeId)
-    var detail = ''
-    if (type instanceof concepts.PrimitiveType) {
-      detail = <Primitive type={type}/>
-    }
-    else if (type instanceof concepts.EnumType) {
-      detail = <Enum type={type}/>
-    }
-    else if (type instanceof concepts.StructType) {
-      detail = <Struct type={type}/>
-    }
-    return (
-      <div>
-        <ol className='breadcrumb'>
-          <li><a href='#/home'>Home</a></li>
-          <li><a href='#/types'>Types</a></li>
-          <li><Link concept={type}/></li>
-        </ol>
-        {detail}
-      </div>
-    )
+export default function Type ({ params: { typeId } }) {
+  var types = document.model.types
+  var type = concepts.Concept.find(types, typeId)
+  var detail = ''
+  if (type instanceof concepts.PrimitiveType) {
+    detail = <Primitive type={type}/>
   }
-})
+  else if (type instanceof concepts.EnumType) {
+    detail = <Enum type={type}/>
+  }
+  else if (type instanceof concepts.StructType) {
+    detail = <Struct type={type}/>
+  }
+  return (
+    <div>
+      <ol className='breadcrumb'>
+        <li><a href='#/home'>Home</a></li>
+        <li><a href='#/types'>Types</a></li>
+        <li><Link concept={type}/></li>
+      </ol>
+      {detail}
+    </div>
+  )
+}

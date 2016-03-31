@@ -16,13 +16,11 @@ limitations under the License.
 
 import React from 'react'
 
-export default React.createClass({
-  render() {
-    var html = {
-      __html: this.props.concept.summary
-    }
-    return (
-      <div dangerouslySetInnerHTML={html}/>
-    )
+export default function Summary ({ concept }) {
+  var html = {
+    __html: concept.summary
   }
-})
+  return (
+    <div dangerouslySetInnerHTML={html}/>
+  )
+}

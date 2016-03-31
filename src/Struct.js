@@ -20,61 +20,53 @@ import Link from 'Link'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-const Member = React.createClass({
-  render() {
-    var member = this.props.member
-    return (
-      <tr>
-        <td>{member.name}</td>
-        <td><Link concept={member.type}/></td>
-        <td><Summary concept={member}/></td>
-      </tr>
-    )
+function Member ({ member }) {
+  return (
+    <tr>
+      <td>{member.name}</td>
+      <td><Link concept={member.type}/></td>
+      <td><Summary concept={member}/></td>
+    </tr>
+  )
+}
+
+function Members (props) {
+  var members = props.members.slice(0)
+  members.sort(concepts.Concept.compare)
+  var rows = []
+  for (var i = 0; i < members.length; i++) {
+    var member = members[i]
+    rows.push(<Member key={member.id} member={member}/>)
   }
-})
+  return (
+    <div>
+      <table className='datatable table table-striped table-bordered'>
+        <thead>
+          <tr>
+            <th width='20%'>Name</th>
+            <th width='20%'>Type</th>
+            <th width='60%'>Summary</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
+  )
+}
 
-const Members = React.createClass({
-  render() {
-    var members = this.props.members.slice(0)
-    members.sort(concepts.Concept.compare)
-    var rows = []
-    for (var i = 0; i < members.length; i++) {
-      var member = members[i]
-      rows.push(<Member key={member.id} member={member}/>)
-    }
-    return (
-      <div>
-        <table className='datatable table table-striped table-bordered'>
-          <thead>
-            <tr>
-              <th width='20%'>Name</th>
-              <th width='20%'>Type</th>
-              <th width='60%'>Summary</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    )
-  }
-})
+export default function Struct ({ type }) {
+  var attributes = type.attributes
+  var links = type.links
+  return (
+    <div>
+      <h2>{type.name} <small>struct</small></h2>
+      <Doc concept={type}/>
 
-export default React.createClass({
-  render() {
-    var type = this.props.type
-    var attributes = type.attributes
-    var links = type.links
-    return (
-      <div>
-        <h2>{type.name} <small>struct</small></h2>
-        <Doc concept={type}/>
+      <h3>Attributes summary ({attributes.length})</h3>
+      <Members members={attributes}/>
 
-        <h3>Attributes summary ({attributes.length})</h3>
-        <Members members={attributes}/>
-
-        <h3>Links summary ({links.length})</h3>
-        <Members members={links}/>
-      </div>
-    )
-  }
-})
+      <h3>Links summary ({links.length})</h3>
+      <Members members={links}/>
+    </div>
+  )
+}

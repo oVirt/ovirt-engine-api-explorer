@@ -20,74 +20,65 @@ import Link from 'Link'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-const Parameter = React.createClass({
-  render() {
-    var parameter = this.props.parameter
-    var direction = ''
-    if (parameter.in && !parameter.out) {
-      direction = 'In'
-    }
-    else if (!parameter.in && parameter.out) {
-      direction = 'Out'
-    }
-    else if (parameter.in && parameter.out) {
-      direction = 'In/Out'
-    }
-    return (
-      <tr>
-        <td>{parameter.name}</td>
-        <td><Link concept={parameter.type}/></td>
-        <td>{direction}</td>
-        <td><Summary concept={parameter}/></td>
-      </tr>
-    )
+function Parameter ({ parameter }) {
+  var direction = ''
+  if (parameter.in && !parameter.out) {
+    direction = 'In'
   }
-})
-
-const Parameters = React.createClass({
-  render() {
-    var parameters = this.props.parameters.slice(0)
-    parameters.sort(concepts.Concept.compare)
-    var rows = []
-    for (var i = 0; i < parameters.length; i++) {
-      var parameter = parameters[i]
-      rows.push(<Parameter key={parameter.id} parameter={parameter}/>)
-    }
-    return (
-      <div>
-        <table className='datatable table table-striped table-bordered'>
-          <thead>
-            <tr>
-              <th width='15%'>Name</th>
-              <th width='15%'>Type</th>
-              <th width='10%'>Direction</th>
-              <th width='60%'>Summary</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    )
+  else if (!parameter.in && parameter.out) {
+    direction = 'Out'
   }
-})
-
-export default React.createClass({
-  render() {
-    var serviceId = this.props.params.serviceId
-    var methodId = this.props.params.methodId
-    var services = document.model.services
-    var service = concepts.Concept.find(services, serviceId)
-    var methods = service.methods
-    var method = concepts.Concept.find(methods, methodId)
-    var parameters = method.parameters
-    return (
-      <div>
-        <h2>{method.name}</h2>
-        <Doc concept={method}/>
-
-        <h3>Parameters summary ({parameters.length})</h3>
-        <Parameters parameters={parameters}/>
-      </div>
-    )
+  else if (parameter.in && parameter.out) {
+    direction = 'In/Out'
   }
-})
+  return (
+    <tr>
+      <td>{parameter.name}</td>
+      <td><Link concept={parameter.type}/></td>
+      <td>{direction}</td>
+      <td><Summary concept={parameter}/></td>
+    </tr>
+  )
+}
+
+function Parameters (props) {
+  var parameters = props.parameters.slice(0)
+  parameters.sort(concepts.Concept.compare)
+  var rows = []
+  for (var i = 0; i < parameters.length; i++) {
+    var parameter = parameters[i]
+    rows.push(<Parameter key={parameter.id} parameter={parameter}/>)
+  }
+  return (
+    <div>
+      <table className='datatable table table-striped table-bordered'>
+        <thead>
+          <tr>
+            <th width='15%'>Name</th>
+            <th width='15%'>Type</th>
+            <th width='10%'>Direction</th>
+            <th width='60%'>Summary</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
+  )
+}
+
+export default function Method ({ params: { serviceId, methodId } }) {
+  var services = document.model.services
+  var service = concepts.Concept.find(services, serviceId)
+  var methods = service.methods
+  var method = concepts.Concept.find(methods, methodId)
+  var parameters = method.parameters
+  return (
+    <div>
+      <h2>{method.name}</h2>
+      <Doc concept={method}/>
+
+      <h3>Parameters summary ({parameters.length})</h3>
+      <Parameters parameters={parameters}/>
+    </div>
+  )
+}
