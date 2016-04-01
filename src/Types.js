@@ -41,31 +41,33 @@ export default class Types extends Component {
     }
 
     // Render the component:
-    return <div>
+    return (
+      <div>
 
-      <ol className='breadcrumb'>
-        <li><a href='#/home'>Home</a></li>
-        <li><a href='#/types'>Types</a></li>
-      </ol>
+        <ol className='breadcrumb'>
+          <li><a href='#/home'>Home</a></li>
+          <li><a href='#/types'>Types</a></li>
+        </ol>
 
-      <h1>Types ({types.length})</h1>
+        <h1>Types ({types.length})</h1>
 
-      <p>
-        This page contain the complete list of names and summaries of all the
-        types used in the API. Click on the type names to see the details.
-      </p>
+        <p>
+          This page contain the complete list of names and summaries of all the
+          types used in the API. Click on the type names to see the details.
+        </p>
 
-      <table className='datatable table table-striped table-bordered'>
-        <thead>
-          <tr>
-            <th width='20%'>Name</th>
-            <th width='80%'>Summary</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+        <table className='datatable table table-striped table-bordered'>
+          <thead>
+            <tr>
+              <th width='20%'>Name</th>
+              <th width='80%'>Summary</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
 
-    </div>
+      </div>
+    )
   }
 
   componentDidMount () {

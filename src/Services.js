@@ -41,31 +41,33 @@ export default class Services extends Component {
     }
 
     // Render the component:
-    return <div>
+    return (
+      <div>
 
-      <ol className='breadcrumb'>
-        <li><a href='#/home'>Home</a></li>
-        <li><a href='#/services'>Services</a></li>
-      </ol>
+        <ol className='breadcrumb'>
+          <li><a href='#/home'>Home</a></li>
+          <li><a href='#/services'>Services</a></li>
+        </ol>
 
-      <h1>Services ({rows.length})</h1>
+        <h1>Services ({rows.length})</h1>
 
-      <p>
-        This page contain the names and summarios of all the services provided
-        by the API. Click on the names to see more details.
-      </p>
+        <p>
+          This page contain the names and summarios of all the services provided
+          by the API. Click on the names to see more details.
+        </p>
 
-      <table className='datatable table table-striped table-bordered'>
-        <thead>
-          <tr>
-            <th width='20%'>Name</th>
-            <th width='80%'>Summary</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+        <table className='datatable table table-striped table-bordered'>
+          <thead>
+            <tr>
+              <th width='20%'>Name</th>
+              <th width='80%'>Summary</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
 
-    </div>
+      </div>
+    )
   }
 
   componentDidMount () {
