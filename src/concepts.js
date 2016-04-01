@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Red Hat, Inc.
+Copyright (c) 2015-2016 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,186 +22,121 @@ limitations under the License.
 
 /**
  * A class that represents a model concept.
- *
- * @class
  */
-export function Concept() {
-}
-
-/**
- * Compares two concepts by name, to be used with the "sort" function.
- *
- * @param {Concept} left - The first concept to compare.
- * @param {Concept} right - The second concept to compare.
- */
-Concept.compare = function(left, right) {
-    left = left.id;
-    right = right.id;
+export class Concept {
+  /**
+   * Compares two concepts by name, to be used with the "sort" function.
+   *
+   * @param {Concept} left - The first concept to compare.
+   * @param {Concept} right - The second concept to compare.
+   */
+  static compare (left, right) {
+    left = left.id
+    right = right.id
     if (left < right) {
-        return -1;
+      return -1
     }
     if (left > right) {
-        return 1;
+      return 1
     }
-    return 0;
-};
+    return 0
+  }
 
-/**
- * Find the concept with the given id in the given array.
- *
- * @param {Concept[]} array - The array of concepts.
- * @param {String} id - The id to look for.
- * @returns {Concept} The concept with the given id, or `null` if no such concept exists.
- */
-Concept.find = function(array, id) {
+  /**
+   * Find the concept with the given id in the given array.
+   *
+   * @param {Concept[]} array - The array of concepts.
+   * @param {String} id - The id to look for.
+   * @returns {Concept} The concept with the given id, or `null` if no such concept exists.
+   */
+  static find (array, id) {
     if (id === null) {
-        return null;
+      return null
     }
     for (var i = 0; i < array.length; i++) {
-        var concept = array[i];
-        if (id == concept.id) {
-            return concept;
-        }
+      var concept = array[i]
+      if (id == concept.id) {
+          return concept
+      }
     }
-    return null;
-};
+    return null
+  }
+}
 
 /**
  * A class that represents a model type.
- *
- * @class
  */
-export function Type() {
-    Concept.call(this);
+export class Type extends Concept {
 }
-
-Type.prototype = new Concept();
 
 /**
  * A class that represents a built-in primitive type, like `string` or `boolean`.
- *
- * @class
  */
-export function PrimitiveType() {
-    Type.call(this);
+export class PrimitiveType extends Type {
 }
-
-PrimitiveType.prototype = new Type();
 
 /**
  * A class that represents an enumerated type.
- *
- * @class
  */
-export function EnumType() {
-    Type.call(this);
+export class EnumType extends Type {
 }
-
-EnumType.prototype = new Type();
 
 /**
  * A class that represents a value of an enumerated type.
- *
- * @class
  */
-export function EnumValue() {
-    Concept.call(this);
+export class EnumValue extends Concept {
 }
-
-EnumValue.prototype = new Concept();
 
 /**
  * A class that represents an structured type, basically a collection of attributes.
- *
- * @class
  */
-export function StructType() {
-    Type.call(this);
+export class StructType extends Type {
 }
-
-StructType.prototype = new Type();
 
 /**
  * A class that represents a list type.
- *
- * @class
  */
-export function ListType() {
-    Type.call(this);
+export class ListType extends Type {
 }
-
-ListType.prototype = new Type();
 
 /**
  * A class that represents a model service.
- *
- * @class
  */
-export function Service() {
-    Concept.call(this);
+export class Service extends Concept {
 }
-
-Service.prototype = new Concept();
 
 /**
  * A class that represents an attribute of an structured type.
- *
- * @class
  */
-export function Attribute() {
-    Concept.call(this);
+export class Attribute extends Concept {
 }
-
-Attribute.prototype = new Concept();
 
 /**
  * A class that represents a link of an structured type.
- *
- * @class
  */
-export function Link() {
-    Concept.call(this);
+export class Link extends Concept {
 }
-
-Link.prototype = new Concept();
 
 /**
  * A class that represents a method of a service.
- *
- * @class
  */
-export function Method() {
-    Concept.call(this);
+export class Method extends Concept {
 }
-
-Method.prototype = new Concept();
 
 /**
  * A class that represents a method parameter.
- *
- * @class
  */
-export function Parameter() {
-    Concept.call(this);
+export class Parameter extends Concept {
 }
-
-Parameter.prototype = new Concept();
 
 /**
  * A class that represents a service locator.
- *
- * @class
  */
-export function Locator() {
-    Concept.call(this);
+export class Locator extends Concept {
 }
-
-Locator.prototype = new Concept();
 
 /**
  * A class that represents a model.
- *
- * @class
  */
-export function Model() {
+export class Model extends Concept {
 }
