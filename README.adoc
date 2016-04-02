@@ -27,3 +27,8 @@ the documentation https://docs.npmjs.com/getting-started/installing-node[here].
 
 The web server will bind to port 8000 of the `localhost` address, so to test
 the application just point your browser to http://localhost:8000.
+
+During development you can also use the following command to run tests and
+static analysis on the code:
+
+  $ npm test

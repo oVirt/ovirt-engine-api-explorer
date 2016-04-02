@@ -25,7 +25,7 @@ export default class Doc extends Component {
     var html = this.props.concept.html
     var element = ReactDOM.findDOMNode(this)
     $(element).html(html)
-    $('pre.highlightjs', element).each(function(index, value) {
+    $('pre.highlightjs', element).each(function (index, value) {
       hljs.highlightBlock(value)
     })
   }

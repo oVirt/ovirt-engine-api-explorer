@@ -1,0 +1,13 @@
+{
+  "extends": ["standard", "standard-react"],
+  // TODO: migrate jQuery and highlight.js to npm managed dependencies and use standard imports
+  "globals": {
+    "$": true,
+    "hljs": true
+  },
+  "rules": {
+    "react/prop-types": 0, // TOOD: provide prop types for all react components and remove this override
+    "comma-dangle": [2, "always-multiline"],
+    "brace-style": [2, "stroustrup"]
+  }
+}

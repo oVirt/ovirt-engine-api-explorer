@@ -1,7 +1,7 @@
 /*
 Copyright (c) 2016 Red Hat, Inc.
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the 'License');
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
@@ -17,10 +17,10 @@ limitations under the License.
 var path = require('path')
 
 module.exports = {
-  entry: __dirname + "/src/main.js",
+  entry: __dirname + '/src/main.js',
   output: {
-    path: __dirname + "/static",
-    filename: "index.js",
+    path: __dirname + '/static',
+    filename: 'index.js',
   },
 
   module: {
@@ -30,7 +30,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015'],
         },
       },
     ],
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: "./static",
+    contentBase: './static',
     colors: true,
     historyApiFallback: true,
     inline: true,

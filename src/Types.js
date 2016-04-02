@@ -33,7 +33,7 @@ export default class Types extends Component {
   render () {
     // Create the list of rows:
     var rows = []
-    var types = document.model.types.slice(0);
+    var types = document.model.types.slice(0)
     types.sort(concepts.Concept.compare)
     for (var i = 0; i < types.length; i++) {
       var type = types[i]
@@ -81,9 +81,7 @@ export default class Types extends Component {
         if ($('.sidebar-pf').length > 0) {
           $(document).sidebar()
         }
-      }
+      },
     })
   }
 }
-
-

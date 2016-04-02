@@ -15,7 +15,6 @@ limitations under the License.
 */
 
 import React from 'react'
-import Doc from 'Doc'
 import Enum from 'Enum'
 import Link from 'Link'
 import Primitive from 'Primitive'

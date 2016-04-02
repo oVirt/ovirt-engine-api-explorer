@@ -18,7 +18,7 @@ import React from 'react'
 
 export default function Summary ({ concept }) {
   var html = {
-    __html: concept.summary
+    __html: concept.summary,
   }
   return (
     <div dangerouslySetInnerHTML={html}/>

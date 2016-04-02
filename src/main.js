@@ -34,7 +34,7 @@ import { analyzeModel } from 'analyzer'
 // Download the model from the server, and when it is ready render the
 // application:
 $.getJSON('model.json', function (data) {
-  document.model = analyzeModel(data);
+  document.model = analyzeModel(data)
 
   // This is needed in order to avoid the "_k=.." added by default when
   // using the ReactJS router module:

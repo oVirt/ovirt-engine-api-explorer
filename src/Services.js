@@ -81,7 +81,7 @@ export default class Services extends Component {
         if ($('.sidebar-pf').length > 0) {
           $(document).sidebar()
         }
-      }
+      },
     })
   }
 }

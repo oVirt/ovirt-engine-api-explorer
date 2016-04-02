@@ -45,10 +45,10 @@ export default function Link ({ concept }) {
       '/parameters/' + concept.id
   }
   else if (concept) {
-    text = concept.toString();
+    text = concept.toString()
   }
   else {
-    text = "?"
+    text = '?'
   }
   if (href) {
     return <a href={href}>{text}</a>

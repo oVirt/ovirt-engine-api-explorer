@@ -55,8 +55,8 @@ export class Concept {
     }
     for (var i = 0; i < array.length; i++) {
       var concept = array[i]
-      if (id == concept.id) {
-          return concept
+      if (id === concept.id) {
+        return concept
       }
     }
     return null
