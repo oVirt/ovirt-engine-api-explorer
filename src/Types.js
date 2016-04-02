@@ -72,7 +72,13 @@ export default class Types extends Component {
 
   componentDidMount () {
     var element = ReactDOM.findDOMNode(this)
-    $('.datatable', element).DataTable()
+    $('.datatable', element).dataTable({
+      drawCallback: function (settings) {
+        if ($('.sidebar-pf').length > 0) {
+          $(document).sidebar()
+        }
+      }
+    })
   }
 }
 
