@@ -20,85 +20,73 @@ import Link from 'Link'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-const Method = React.createClass({
-  render() {
-    var method = this.props.method
-    return (
-      <tr>
-        <td><Link concept={method}/></td>
-        <td><Summary concept={method}/></td>
-      </tr>
-    )
-  }
-})
+function Method ({ method }) {
+  return (
+    <tr>
+      <td><Link concept={method}/></td>
+      <td><Summary concept={method}/></td>
+    </tr>
+  )
+}
 
-const Methods = React.createClass({
-  render() {
-    var methods = this.props.methods
-    methods.sort(concepts.Concept.compare)
-    var rows = []
-    for (var i = 0; i < methods.length; i++) {
-      var method = methods[i]
-      rows.push(<Method key={method.id} method={method}/>)
-    }
-    return (
-      <div>
-        <table className='datatable table table-striped table-bordered'>
-          <colgroup>
-            <col style={{width: '20%'}}/>
-            <col style={{width: '80%'}}/>
-          </colgroup>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Summary</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    )
+function Methods ({ methods }) {
+  methods.sort(concepts.Concept.compare)
+  var rows = []
+  for (var i = 0; i < methods.length; i++) {
+    var method = methods[i]
+    rows.push(<Method key={method.id} method={method}/>)
   }
-})
+  return (
+    <div>
+      <table className='datatable table table-striped table-bordered'>
+        <colgroup>
+          <col style={{width: '20%'}}/>
+          <col style={{width: '80%'}}/>
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
+  )
+}
 
-const Locator = React.createClass({
-  render() {
-    var locator = this.props.locator
-    return (
-      <tr>
-        <td>{locator.name}</td>
-        <td>-</td>
-        <td><Summary concept={locator}/></td>
-      </tr>
-    )
-  }
-})
+function Locator ({ locator }) {
+  return (
+    <tr>
+      <td>{locator.name}</td>
+      <td>-</td>
+      <td><Summary concept={locator}/></td>
+    </tr>
+  )
+}
 
-const Locators = React.createClass({
-  render() {
-    var locators = this.props.locators
-    locators.sort(concepts.Concept.compare)
-    var rows = []
-    for (var i = 0; i < locators.length; i++) {
-      var locator = locators[i]
-      rows.push(<Locator key={locator.id} locator={locator}/>)
-    }
-    return (
-      <div>
-        <table className='datatable table table-striped table-bordered'>
-          <thead>
-            <tr>
-              <th width='20%'>Name</th>
-              <th width='20%'>Target</th>
-              <th width='60%'>Summary</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    )
+function Locators ({ locators }) {
+  locators.sort(concepts.Concept.compare)
+  var rows = []
+  for (var i = 0; i < locators.length; i++) {
+    var locator = locators[i]
+    rows.push(<Locator key={locator.id} locator={locator}/>)
   }
-})
+  return (
+    <div>
+      <table className='datatable table table-striped table-bordered'>
+        <thead>
+          <tr>
+            <th width='20%'>Name</th>
+            <th width='20%'>Target</th>
+            <th width='60%'>Summary</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
+  )
+}
 
 export default function Service ({ params: { serviceId } }) {
   var services = document.model.services
