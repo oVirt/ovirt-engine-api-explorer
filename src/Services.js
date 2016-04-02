@@ -57,10 +57,14 @@ export default class Services extends Component {
         </p>
 
         <table className='datatable table table-striped table-bordered'>
+          <colgroup>
+            <col style={{width: '20%'}}/>
+            <col style={{width: '80%'}}/>
+          </colgroup>
           <thead>
             <tr>
-              <th width='20%'>Name</th>
-              <th width='80%'>Summary</th>
+              <th>Name</th>
+              <th>Summary</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>

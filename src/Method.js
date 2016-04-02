@@ -52,12 +52,18 @@ function Parameters (props) {
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
+        <colgroup>
+          <col style={{width: '15%'}}/>
+          <col style={{width: '15%'}}/>
+          <col style={{width: '10%'}}/>
+          <col style={{width: '60%'}}/>
+        </colgroup>
         <thead>
           <tr>
-            <th width='15%'>Name</th>
-            <th width='15%'>Type</th>
-            <th width='10%'>Direction</th>
-            <th width='60%'>Summary</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Direction</th>
+            <th>Summary</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
