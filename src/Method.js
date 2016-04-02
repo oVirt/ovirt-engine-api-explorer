@@ -21,7 +21,7 @@ import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function Parameter ({ parameter }) {
-  var direction = ''
+  let direction = ''
   if (parameter.in && !parameter.out) {
     direction = 'In'
   }
@@ -42,13 +42,10 @@ function Parameter ({ parameter }) {
 }
 
 function Parameters (props) {
-  var parameters = props.parameters.slice(0)
-  parameters.sort(concepts.Concept.compare)
-  var rows = []
-  for (var i = 0; i < parameters.length; i++) {
-    var parameter = parameters[i]
-    rows.push(<Parameter key={parameter.id} parameter={parameter}/>)
-  }
+  const parameters = props.parameters.slice(0)
+  const rows = parameters
+    .sort(concepts.Concept.compare)
+    .map((parameter) => <Parameter key={parameter.id} parameter={parameter}/>)
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
@@ -73,11 +70,11 @@ function Parameters (props) {
 }
 
 export default function Method ({ params: { serviceId, methodId } }) {
-  var services = document.model.services
-  var service = concepts.Concept.find(services, serviceId)
-  var methods = service.methods
-  var method = concepts.Concept.find(methods, methodId)
-  var parameters = method.parameters
+  const services = document.model.services
+  const service = concepts.Concept.find(services, serviceId)
+  const methods = service.methods
+  const method = concepts.Concept.find(methods, methodId)
+  const parameters = method.parameters
   return (
     <div>
       <h2>{method.name}</h2>

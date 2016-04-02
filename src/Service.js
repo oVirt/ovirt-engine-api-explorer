@@ -30,12 +30,9 @@ function Method ({ method }) {
 }
 
 function Methods ({ methods }) {
-  methods.sort(concepts.Concept.compare)
-  var rows = []
-  for (var i = 0; i < methods.length; i++) {
-    var method = methods[i]
-    rows.push(<Method key={method.id} method={method}/>)
-  }
+  const rows = methods
+    .sort(concepts.Concept.compare)
+    .map((method) => <Method key={method.id} method={method}/>)
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
@@ -66,12 +63,9 @@ function Locator ({ locator }) {
 }
 
 function Locators ({ locators }) {
-  locators.sort(concepts.Concept.compare)
-  var rows = []
-  for (var i = 0; i < locators.length; i++) {
-    var locator = locators[i]
-    rows.push(<Locator key={locator.id} locator={locator}/>)
-  }
+  const rows = locators
+    .sort(concepts.Concept.compare)
+    .map((locator) => <Locator key={locator.id} locator={locator}/>)
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
@@ -89,10 +83,10 @@ function Locators ({ locators }) {
 }
 
 export default function Service ({ params: { serviceId } }) {
-  var services = document.model.services
-  var service = concepts.Concept.find(services, serviceId)
-  var methods = service.methods
-  var locators = service.locators
+  const services = document.model.services
+  const service = concepts.Concept.find(services, serviceId)
+  const methods = service.methods
+  const locators = service.locators
   return (
     <div>
       <ol className='breadcrumb'>

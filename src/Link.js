@@ -18,11 +18,11 @@ import React from 'react'
 import * as concepts from 'concepts'
 
 export default function Link ({ concept }) {
-  var text = concept.name
-  var href
+  let text = concept.name
+  let href
   if (concept instanceof concepts.Type) {
     if (concept instanceof concepts.ListType) {
-      var item = concept.element
+      const item = concept.element
       href = '#/types/' + item.id
       text = item.name + '[]'
     }

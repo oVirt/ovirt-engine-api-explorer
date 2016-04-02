@@ -29,28 +29,16 @@ import * as concepts from 'concepts'
  * @param {Model} - A `Model` object containg the same data.
  */
 export function analyzeModel (data) {
-  var model = new concepts.Model()
-  var i, j
+  const model = new concepts.Model()
 
   // Analyze the list of types:
-  model.types = []
-  if (data.types) {
-    for (i = 0; i < data.types.length; i++) {
-      model.types[i] = analyzeType(data.types[i])
-    }
-  }
+  model.types = data.types ? data.types.map(analyzeType) : []
 
   // Analyze the list of services:
-  model.services = []
-  if (data.services) {
-    for (i = 0; i < data.services.length; i++) {
-      model.services[i] = analyzeService(data.services[i])
-    }
-  }
+  model.services = data.services ? data.services.map(analyzeService) : []
 
   // Replace attribute and link type specifications with references to the actual types:
-  for (i = 0; i < model.types.length; i++) {
-    var type = model.types[i]
+  for (let type of model.types) {
     if (type instanceof concepts.StructType) {
       resolveTypes(type.attributes, model.types)
       resolveTypes(type.links, model.types)
@@ -58,10 +46,8 @@ export function analyzeModel (data) {
   }
 
   // Replace method parameter type specifications with references to the actual types:
-  for (i = 0; i < model.services.length; i++) {
-    var service = model.services[i]
-    for (j = 0; j < service.methods.length; j++) {
-      var method = service.methods[j]
+  for (let service of model.services) {
+    for (let method of service.methods) {
       resolveTypes(method.parameters, model.types)
     }
   }
@@ -70,7 +56,7 @@ export function analyzeModel (data) {
 }
 
 function analyzeType (data) {
-  var type
+  let type
   if (data.kind === 'primitive') {
     type = analyzePrimitiveType(data)
   }
@@ -84,59 +70,42 @@ function analyzeType (data) {
 }
 
 function analyzePrimitiveType (data) {
-  var type = new concepts.PrimitiveType()
+  const type = new concepts.PrimitiveType()
   analyzeCommon(type, data)
   return type
 }
 
 function analyzeEnumType (data) {
-  var i
-  var type = new concepts.EnumType()
+  const type = new concepts.EnumType()
   analyzeCommon(type, data)
 
   // Analyze the list of values:
-  type.values = []
-  if (data.values) {
-    for (i = 0; i < data.values.length; i++) {
-      type.values[i] = analyzeEnumValue(data.values[i])
-    }
-  }
+  type.values = data.values ? data.values.map(analyzeEnumValue) : []
 
   return type
 }
 
 function analyzeEnumValue (data) {
-  var value = new concepts.EnumValue()
+  const value = new concepts.EnumValue()
   analyzeCommon(value, data)
   return value
 }
 
 function analyzeStructType (data) {
-  var i
-  var type = new concepts.StructType()
+  const type = new concepts.StructType()
   analyzeCommon(type, data)
 
   // Analyze the list of attributes:
-  type.attributes = []
-  if (data.attributes) {
-    for (i = 0; i < data.attributes.length; i++) {
-      type.attributes[i] = analyzeAttribute(data.attributes[i])
-    }
-  }
+  type.attributes = data.attributes ? data.attributes.map(analyzeAttribute) : []
 
   // Analyze the list of links:
-  type.links = []
-  if (data.links) {
-    for (i = 0; i < data.links.length; i++) {
-      type.links[i] = analyzeLink(data.links[i])
-    }
-  }
+  type.links = data.links ? data.links.map(analyzeLink) : []
 
   return type
 }
 
 function analyzeAttribute (data) {
-  var attribute = new concepts.Attribute()
+  const attribute = new concepts.Attribute()
   analyzeCommon(attribute, data)
 
   // Save the type specification, which will be later replaced by the reference to the corresponding type object:
@@ -148,7 +117,7 @@ function analyzeAttribute (data) {
 }
 
 function analyzeLink (data) {
-  var link = new concepts.Link()
+  const link = new concepts.Link()
   analyzeCommon(link, data)
 
   // Save the type specification, which will be later replaced by the reference to the corresponding type object:
@@ -160,49 +129,44 @@ function analyzeLink (data) {
 }
 
 function analyzeService (data) {
-  var i
-  var service = new concepts.Service()
+  const service = new concepts.Service()
   analyzeCommon(service, data)
 
   // Analyze the list of methods:
   service.methods = []
   if (data.methods) {
-    for (i = 0; i < data.methods.length; i++) {
-      service.methods[i] = analyzeMethod(data.methods[i])
-      service.methods[i].service = service
-    }
+    service.methods = data.methods.map((method) => {
+      const analyzedMethod = analyzeMethod(method)
+      analyzedMethod.service = service
+      return analyzedMethod
+    })
   }
 
   // Analyze the list of locators:
-  service.locators = []
-  if (data.locators) {
-    for (i = 0; i < data.locators.length; i++) {
-      service.locators[i] = analyzeLocator(data.locators[i])
-    }
-  }
+  service.locators = data.locators ? data.locators.map(analyzeLocator) : []
 
   return service
 }
 
 function analyzeMethod (data) {
-  var i
-  var method = new concepts.Method()
+  const method = new concepts.Method()
   analyzeCommon(method, data)
 
   // Analyze the list of parameters:
   method.parameters = []
   if (data.parameters) {
-    for (i = 0; i < data.parameters.length; i++) {
-      method.parameters[i] = analyzeParameter(data.parameters[i])
-      method.parameters[i].method = method
-    }
+    method.parameters = data.parameters.map((parameter) => {
+      const analyzedParameter = analyzeParameter(parameter)
+      analyzedParameter.method = method
+      return analyzedParameter
+    })
   }
 
   return method
 }
 
 function analyzeParameter (data) {
-  var parameter = new concepts.Parameter()
+  const parameter = new concepts.Parameter()
   analyzeCommon(parameter, data)
 
   // Copy the direction flags:
@@ -218,7 +182,7 @@ function analyzeParameter (data) {
 }
 
 function analyzeLocator (data) {
-  var locator = new concepts.Locator()
+  const locator = new concepts.Locator()
   analyzeCommon(locator, data)
   return locator
 }
@@ -232,9 +196,8 @@ function analyzeName (concept, data) {
   if (data.name) {
     concept.id = data.name
     concept.name = ''
-    var words = data.name.split('-')
-    for (var i = 0; i < words.length; i++) {
-      var word = words[i]
+    const words = data.name.split('-')
+    for (let word of words) {
       if (word.length > 0) {
         word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase()
       }
@@ -247,7 +210,7 @@ function analyzeDoc (concept, data) {
   if (data.doc) {
     concept.doc = data.doc
     concept.html = data.html
-    var i = concept.html.indexOf('.')
+    const i = concept.html.indexOf('.')
     if (i !== -1) {
       concept.summary = concept.html.substring(0, i + 1)
     }
@@ -270,8 +233,8 @@ function analyzeDoc (concept, data) {
  * @param {Type[]} types - An array containing all the valid types.
  */
 function resolveTypes (concepts, types) {
-  for (var i = 0; i < concepts.length; i++) {
-    resolveType(concepts[i], types)
+  for (let concept of concepts) {
+    resolveType(concept, types)
   }
 }
 
@@ -282,9 +245,9 @@ function resolveTypes (concepts, types) {
  * @param {Type[]} types - An array containing the valid types.
  */
 function resolveType (concept, types) {
-  var spec = concept.type
-  var type
-  var element
+  let spec = concept.type
+  let type
+  let element
   if (spec) {
     if (spec.length >= 2 && spec.substring(spec.length - 2) === '[]') {
       spec = spec.substring(0, spec.length - 2)

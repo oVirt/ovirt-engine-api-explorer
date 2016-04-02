@@ -17,7 +17,7 @@ limitations under the License.
 import React from 'react'
 
 export default function Summary ({ concept }) {
-  var html = {
+  const html = {
     __html: concept.summary,
   }
   return (

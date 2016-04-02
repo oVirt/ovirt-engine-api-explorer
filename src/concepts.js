@@ -53,13 +53,7 @@ export class Concept {
     if (id === null) {
       return null
     }
-    for (var i = 0; i < array.length; i++) {
-      var concept = array[i]
-      if (id === concept.id) {
-        return concept
-      }
-    }
-    return null
+    return array.find((concept) => concept.id === id)
   }
 }
 

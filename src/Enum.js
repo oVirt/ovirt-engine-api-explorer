@@ -29,13 +29,10 @@ function Value ({ value }) {
 }
 
 function Values ({ type }) {
-  var values = type.values.slice(0)
-  values.sort(concepts.Concept.compare)
-  var rows = []
-  for (var i = 0; i < values.length; i++) {
-    var value = values[i]
-    rows.push(<Value key={value.id} value={value}/>)
-  }
+  const values = type.values.slice(0)
+  const rows = values
+    .sort(concepts.Concept.compare)
+    .map((value) => <Value key={value.id} value={value}/>)
   return (
     <div>
       <h3>Values summary ({values.length})</h3>

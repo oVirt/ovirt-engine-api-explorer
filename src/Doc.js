@@ -22,11 +22,9 @@ export default class Doc extends Component {
     return <div/>
   }
   componentDidMount () {
-    var html = this.props.concept.html
-    var element = ReactDOM.findDOMNode(this)
+    const html = this.props.concept.html
+    const element = ReactDOM.findDOMNode(this)
     $(element).html(html)
-    $('pre.highlightjs', element).each(function (index, value) {
-      hljs.highlightBlock(value)
-    })
+    $('pre.highlightjs', element).each((index, value) => hljs.highlightBlock(value))
   }
 }

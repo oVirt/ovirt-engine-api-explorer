@@ -32,13 +32,10 @@ function Row ({ service }) {
 export default class Services extends Component {
   render () {
     // Create the list of rows:
-    var rows = []
-    var services = document.model.services.slice(0)
-    services.sort(concepts.Concept.compare)
-    for (var i = 0; i < services.length; i++) {
-      var service = services[i]
-      rows.push(<Row key={service.id} service={service}/>)
-    }
+    const services = document.model.services.slice(0)
+    const rows = services
+      .sort(concepts.Concept.compare)
+      .map((service) => <Row key={service.id} service={service}/>)
 
     // Render the component:
     return (
@@ -75,9 +72,9 @@ export default class Services extends Component {
   }
 
   componentDidMount () {
-    var element = ReactDOM.findDOMNode(this)
+    const element = ReactDOM.findDOMNode(this)
     $('.datatable', element).dataTable({
-      drawCallback: function (settings) {
+      drawCallback (settings) {
         if ($('.sidebar-pf').length > 0) {
           $(document).sidebar()
         }

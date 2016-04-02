@@ -31,13 +31,10 @@ function Member ({ member }) {
 }
 
 function Members (props) {
-  var members = props.members.slice(0)
-  members.sort(concepts.Concept.compare)
-  var rows = []
-  for (var i = 0; i < members.length; i++) {
-    var member = members[i]
-    rows.push(<Member key={member.id} member={member}/>)
-  }
+  const members = props.members.slice(0)
+  const rows = members
+    .sort(concepts.Concept.compare)
+    .map((member) => <Member key={member.id} member={member}/>)
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
@@ -60,8 +57,8 @@ function Members (props) {
 }
 
 export default function Struct ({ type }) {
-  var attributes = type.attributes
-  var links = type.links
+  const attributes = type.attributes
+  const links = type.links
   return (
     <div>
       <h2>{type.name} <small>struct</small></h2>

@@ -32,13 +32,10 @@ function Row ({ type }) {
 export default class Types extends Component {
   render () {
     // Create the list of rows:
-    var rows = []
-    var types = document.model.types.slice(0)
-    types.sort(concepts.Concept.compare)
-    for (var i = 0; i < types.length; i++) {
-      var type = types[i]
-      rows.push(<Row key={type.id} type={type}/>)
-    }
+    const types = document.model.types.slice(0)
+    const rows = types
+      .sort(concepts.Concept.compare)
+      .map((type) => <Row key={type.id} type={type}/>)
 
     // Render the component:
     return (
@@ -75,9 +72,9 @@ export default class Types extends Component {
   }
 
   componentDidMount () {
-    var element = ReactDOM.findDOMNode(this)
+    const element = ReactDOM.findDOMNode(this)
     $('.datatable', element).dataTable({
-      drawCallback: function (settings) {
+      drawCallback (settings) {
         if ($('.sidebar-pf').length > 0) {
           $(document).sidebar()
         }

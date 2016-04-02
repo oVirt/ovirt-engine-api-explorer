@@ -22,9 +22,9 @@ import Struct from 'Struct'
 import * as concepts from 'concepts'
 
 export default function Type ({ params: { typeId } }) {
-  var types = document.model.types
-  var type = concepts.Concept.find(types, typeId)
-  var detail = ''
+  const types = document.model.types
+  const type = concepts.Concept.find(types, typeId)
+  let detail = ''
   if (type instanceof concepts.PrimitiveType) {
     detail = <Primitive type={type}/>
   }
