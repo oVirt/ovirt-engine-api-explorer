@@ -49,7 +49,7 @@ export default class Services extends Component {
         <h1>Services ({rows.length})</h1>
 
         <p>
-          This page contain the names and summarios of all the services provided
+          This page contain the names and summaries of all the services provided
           by the API. Click on the names to see more details.
         </p>
 
