@@ -69,11 +69,16 @@ function Locators ({ locators }) {
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
+        <colgroup>
+          <col style={{width: '20%'}}/>
+          <col style={{width: '20%'}}/>
+          <col style={{width: '60%'}}/>
+        </colgroup>
         <thead>
           <tr>
-            <th width='20%'>Name</th>
-            <th width='20%'>Target</th>
-            <th width='60%'>Summary</th>
+            <th>Name</th>
+            <th>Target</th>
+            <th>Summary</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
