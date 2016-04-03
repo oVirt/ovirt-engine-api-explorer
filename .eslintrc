@@ -1,9 +1,8 @@
 {
   "extends": ["standard", "standard-react"],
-  // TODO: migrate jQuery and highlight.js to npm managed dependencies and use standard imports
+  // TODO: migrate jQuery to npm managed dependencies and use standard imports
   "globals": {
-    "$": true,
-    "hljs": true
+    "$": true
   },
   "rules": {
     "react/prop-types": 0, // TOOD: provide prop types for all react components and remove this override

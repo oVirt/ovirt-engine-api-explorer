@@ -16,6 +16,7 @@ limitations under the License.
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import hljs from 'highlight.js'
 
 export default class Doc extends Component {
   render () {
