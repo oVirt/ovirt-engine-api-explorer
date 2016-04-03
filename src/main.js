@@ -31,6 +31,9 @@ import Type from 'Type'
 import Types from 'Types'
 import { analyzeModel } from 'analyzer'
 
+// Load styles:
+import '../node_modules/highlight.js/styles/idea.css'
+
 // Download the model from the server, and when it is ready render the
 // application:
 $.getJSON('model.json', function (data) {
