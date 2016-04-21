@@ -19,7 +19,7 @@ This package contains the oVirt Engine API explorer.
 %prep
 
 # Unpack the source:
-%setup -q
+%setup -q -n %{name}-%{version}
 
 # Make sure that we use our Node.js installation:
 export PATH="%{_datadir}/ovirt-engine-nodejs/bin:${PATH}"

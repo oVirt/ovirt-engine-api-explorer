@@ -19,7 +19,7 @@ git archive --prefix="${tar_prefix}" --output="${tar_file}" HEAD
 # Build the RPM:
 mv "${tar_file}" packaging/
 pushd packaging
-  export tar_version
+  export tar_version="${version}"
   export tar_file
   export rpm_suffix="${suffix}"
   ./build.sh
