@@ -18,6 +18,9 @@ import React from 'react'
 import * as concepts from 'concepts'
 
 export default function Link ({ concept }) {
+  if (concept == null) {
+    return null
+  }
   let text = concept.name
   let href
   if (concept instanceof concepts.Type) {
