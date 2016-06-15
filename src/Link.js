@@ -19,7 +19,7 @@ import * as concepts from 'concepts'
 
 export default function Link ({ concept }) {
   if (concept == null) {
-    return null
+    return <span>-</span>
   }
   let text = concept.name
   let href
