@@ -52,6 +52,13 @@ export function analyzeModel (data) {
     }
   }
 
+  // Replace locator target service identifiers with references to the actual services:
+  for (let service of model.services) {
+    for (let locator of service.locators) {
+      locator.service = concepts.Concept.find(model.services, locator.service)
+    }
+  }
+
   return model
 }
 
@@ -184,6 +191,10 @@ function analyzeParameter (data) {
 function analyzeLocator (data) {
   const locator = new concepts.Locator()
   analyzeCommon(locator, data)
+
+  // Save the identifier of the target service, it will be later replaced by the reference to the actual service:
+  locator.service = data.service
+
   return locator
 }
 

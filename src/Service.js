@@ -56,7 +56,7 @@ function Locator ({ locator }) {
   return (
     <tr>
       <td>{locator.name}</td>
-      <td>-</td>
+      <td><Link concept={locator.service}/></td>
       <td><Summary concept={locator}/></td>
     </tr>
   )
@@ -77,7 +77,7 @@ function Locators ({ locators }) {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Target</th>
+            <th>Service</th>
             <th>Summary</th>
           </tr>
         </thead>
