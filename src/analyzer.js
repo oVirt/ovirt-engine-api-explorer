@@ -204,17 +204,8 @@ function analyzeCommon (concept, data) {
 }
 
 function analyzeName (concept, data) {
-  if (data.name) {
-    concept.id = data.name
-    concept.name = ''
-    const words = data.name.split('-')
-    for (let word of words) {
-      if (word.length > 0) {
-        word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase()
-      }
-      concept.name += word
-    }
-  }
+  concept.id = data.name
+  concept.name = data.name
 }
 
 function analyzeDoc (concept, data) {
