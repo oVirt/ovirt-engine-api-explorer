@@ -15,15 +15,33 @@ limitations under the License.
 */
 
 import React from 'react'
+import * as concepts from 'concepts'
+
+function Item ({ doc }) {
+  let href = '#/documents/' + doc.id
+  return (
+    <li>
+      <a href={href}>
+        <i className='fa fa-book'></i>
+        {doc.title}
+      </a>
+    </li>
+  )
+}
 
 export default function Menu () {
+  // Create the list of items:
+  const docs = document.model.documents.slice(0)
+  const items = docs
+    .sort(concepts.Concept.compare)
+    .map((doc) => <Item key={doc.id} doc={doc}/>)
+
+  // Render the menu:
   return (
     <div>
       <div className='nav-category'>
-        <h2>Introduction</h2>
-        <ul className='nav nav-pills nav-stacked'>
-          <li><a href='#/home'><i className='fa fa-home'></i>Home</a></li>
-        </ul>
+        <h2>Documents</h2>
+        <ul className='nav nav-pills nav-stacked'>{items}</ul>
       </div>
       <div className='nav-category'>
         <h2>Reference</h2>

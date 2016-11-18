@@ -94,12 +94,6 @@ export default function Service ({ params: { serviceId } }) {
   const locators = service.locators
   return (
     <div>
-      <ol className='breadcrumb'>
-        <li><a href='#/home'>Home</a></li>
-        <li><a href='#/services'>Services</a></li>
-        <li><Link concept={service}/></li>
-      </ol>
-
       <h2>{service.name}</h2>
       <Doc concept={service}/>
 

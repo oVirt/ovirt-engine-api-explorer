@@ -68,6 +68,16 @@ export function analyzeModel (data) {
 function analyzeDocument (data) {
   const doc = new concepts.Document()
   analyzeCommon(doc, data)
+  if (data.source) {
+    let titleMatch = data.source.match(/^==\s+(.*)$/m)
+    if (titleMatch) {
+      doc.title = titleMatch[1]
+    }
+  }
+  else {
+    doc.title = ''
+  }
+  doc.html = data.html 
   return doc
 }
 
@@ -221,12 +231,12 @@ function analyzeDoc (concept, data) {
   if (data.doc) {
     concept.doc = data.doc
     concept.html = data.html
-    const i = concept.html.indexOf('.')
+    const i = data.html.indexOf('.')
     if (i !== -1) {
-      concept.summary = concept.html.substring(0, i + 1)
+      concept.summary = data.html.substring(0, i + 1)
     }
     else {
-      concept.summary = concept.html
+      concept.summary = data.html
     }
   }
   else {

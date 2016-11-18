@@ -14,27 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
-import Enum from 'Enum'
-import Link from 'Link'
-import Primitive from 'Primitive'
-import Struct from 'Struct'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import hljs from 'highlight.js'
 import * as concepts from 'concepts'
 
-export default function Type ({ params: { typeId } }) {
-  const types = document.model.types
-  const type = concepts.Concept.find(types, typeId)
-  let detail = ''
-  if (type instanceof concepts.PrimitiveType) {
-    detail = <Primitive type={type}/>
+export default class Document extends Component {
+  render () {
+    const id = this.props.params.docId
+    const doc = concepts.Concept.find(document.model.documents, id)
+    return (
+      <div dangerouslySetInnerHTML={{__html: doc.html}}/>
+    )
   }
-  else if (type instanceof concepts.EnumType) {
-    detail = <Enum type={type}/>
+
+  componentDidMount () {
+    const element = ReactDOM.findDOMNode(this)
+    $('pre.highlightjs', element).each((index, value) => {
+      hljs.highlightBlock(value)
+    })
   }
-  else if (type instanceof concepts.StructType) {
-    detail = <Struct type={type}/>
-  }
-  return (
-    <div>{detail}</div>
-  )
 }

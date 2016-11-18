@@ -41,11 +41,6 @@ export default class Services extends Component {
     return (
       <div>
 
-        <ol className='breadcrumb'>
-          <li><a href='#/home'>Home</a></li>
-          <li><a href='#/services'>Services</a></li>
-        </ol>
-
         <h1>Services</h1>
 
         <p>

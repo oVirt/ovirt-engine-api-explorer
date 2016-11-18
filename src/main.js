@@ -20,10 +20,10 @@ limitations under the License.
 
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, useRouterHistory } from 'react-router'
+import { Redirect, Router, Route, useRouterHistory } from 'react-router'
 import { createHashHistory } from 'history'
 
-import Home from 'Home'
+import Document from 'Document'
 import Menu from 'Menu'
 import Method from 'Method'
 import Service from 'Service'
@@ -31,6 +31,7 @@ import Services from 'Services'
 import Type from 'Type'
 import Types from 'Types'
 import { analyzeModel } from 'analyzer'
+import * as concepts from 'concepts'
 
 // Load styles:
 import '../node_modules/highlight.js/styles/idea.css'
@@ -39,6 +40,11 @@ import '../node_modules/highlight.js/styles/idea.css'
 // application:
 $.getJSON('model.json', function (data) {
   document.model = analyzeModel(data)
+
+  // Find the identifier of the first document, as that will be used as
+  // the home page:
+  const docs = document.model.documents.slice(0)
+  const home = docs.sort(concepts.Concept.compare)[0]
 
   // This is needed in order to avoid the "_k=.." added by default when
   // using the ReactJS router module:
@@ -52,12 +58,13 @@ $.getJSON('model.json', function (data) {
   // Render the main content area:
   render((
     <Router history={history}>
+      <Route path='/documents/:docId' component={Document}/>
       <Route path='/types' component={Types}/>
       <Route path='/types/:typeId' component={Type}/>
       <Route path='/services' component={Services}/>
       <Route path='/services/:serviceId' component={Service}/>
       <Route path='/services/:serviceId/methods/:methodId' component={Method}/>
-      <Route path='*' component={Home}/>
+      <Redirect from='*' to={'/documents/' + home.id}/>
     </Router>
   ), document.getElementById('content'))
 })

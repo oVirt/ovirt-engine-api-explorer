@@ -41,15 +41,10 @@ export default class Types extends Component {
     return (
       <div>
 
-        <ol className='breadcrumb'>
-          <li><a href='#/home'>Home</a></li>
-          <li><a href='#/types'>Types</a></li>
-        </ol>
-
         <h1>Types</h1>
 
         <p>
-          This page contain the complete list of names and summaries of all the
+          This page contains the complete list of names and summaries of all the
           types used in the API. Click on the type names to see the details.
         </p>
 

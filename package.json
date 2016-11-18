@@ -31,5 +31,8 @@
   "scripts": {
     "start": "webpack-dev-server --progress",
     "test": "eslint src --ext js,jsx"
+  },
+  "dependencies": {
+    "asciidoctor.js": "^1.5.5-3"
   }
 }

@@ -23,7 +23,11 @@ export default function Link ({ concept }) {
   }
   let text = concept.name
   let href
-  if (concept instanceof concepts.Type) {
+  if (concept instanceof concepts.Document) {
+    href = '#/documents/' + concept.id
+    text = concept.title
+  }
+  else if (concept instanceof concepts.Type) {
     if (concept instanceof concepts.ListType) {
       const item = concept.element
       href = '#/types/' + item.id
