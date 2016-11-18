@@ -24,6 +24,7 @@ import { Router, Route, useRouterHistory } from 'react-router'
 import { createHashHistory } from 'history'
 
 import Home from 'Home'
+import Menu from 'Menu'
 import Method from 'Method'
 import Service from 'Service'
 import Services from 'Services'
@@ -42,6 +43,13 @@ $.getJSON('model.json', function (data) {
   // This is needed in order to avoid the "_k=.." added by default when
   // using the ReactJS router module:
   const history = useRouterHistory(createHashHistory)({ queryKey: false })
+
+  // Render the menu:
+  render((
+    <Menu/>
+  ), document.getElementById('menu'))
+
+  // Render the main content area:
   render((
     <Router history={history}>
       <Route path='/types' component={Types}/>
