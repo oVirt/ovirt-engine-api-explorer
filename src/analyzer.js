@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Red Hat, Inc.
+Copyright (c) 2015-2016 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,6 +31,9 @@ import * as concepts from 'concepts'
 export function analyzeModel (data) {
   const model = new concepts.Model()
 
+  // Analyze the list of standalone documents:
+  model.documents = data.documents ? data.documents.map(analyzeDocument) : []
+
   // Analyze the list of types:
   model.types = data.types ? data.types.map(analyzeType) : []
 
@@ -60,6 +63,12 @@ export function analyzeModel (data) {
   }
 
   return model
+}
+
+function analyzeDocument (data) {
+  const doc = new concepts.Document()
+  analyzeCommon(doc, data)
+  return doc
 }
 
 function analyzeType (data) {

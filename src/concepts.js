@@ -134,3 +134,9 @@ export class Locator extends Concept {
  */
 export class Model extends Concept {
 }
+
+/**
+ * A class that represents an standalone document.
+ */
+export class Document extends Concept {
+}
