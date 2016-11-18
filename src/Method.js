@@ -80,7 +80,7 @@ export default function Method ({ params: { serviceId, methodId } }) {
       <h2>{method.name}</h2>
       <Doc concept={method}/>
 
-      <h3>Parameters summary ({parameters.length})</h3>
+      <h3>Parameters summary</h3>
       <Parameters parameters={parameters}/>
     </div>
   )

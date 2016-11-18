@@ -46,7 +46,7 @@ export default class Services extends Component {
           <li><a href='#/services'>Services</a></li>
         </ol>
 
-        <h1>Services ({rows.length})</h1>
+        <h1>Services</h1>
 
         <p>
           This page contain the names and summaries of all the services provided

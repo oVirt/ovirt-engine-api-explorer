@@ -46,7 +46,7 @@ export default class Types extends Component {
           <li><a href='#/types'>Types</a></li>
         </ol>
 
-        <h1>Types ({types.length})</h1>
+        <h1>Types</h1>
 
         <p>
           This page contain the complete list of names and summaries of all the

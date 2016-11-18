@@ -35,7 +35,7 @@ function Values ({ type }) {
     .map((value) => <Value key={value.id} value={value}/>)
   return (
     <div>
-      <h3>Values summary ({values.length})</h3>
+      <h3>Values summary</h3>
       <table className='datatable table table-striped table-bordered'>
         <colgroup>
           <col style={{width: '20%'}}/>

@@ -64,10 +64,10 @@ export default function Struct ({ type }) {
       <h2>{type.name} <small>struct</small></h2>
       <Doc concept={type}/>
 
-      <h3>Attributes summary ({attributes.length})</h3>
+      <h3>Attributes summary</h3>
       <Members members={attributes}/>
 
-      <h3>Links summary ({links.length})</h3>
+      <h3>Links summary</h3>
       <Members members={links}/>
     </div>
   )
