@@ -22,11 +22,7 @@ This package contains the oVirt Engine API explorer.
 %setup -q -n %{name}-%{version}
 
 # Make sure that we use our Node.js installation:
-export PATH="%{_datadir}/ovirt-engine-nodejs/bin:${PATH}"
-
-# Copy the Node.js dependencies to the local "node_modules" directory:
-ln -s "%{_datadir}/ovirt-engine-nodejs-modules/node_modules"
-export PATH="./node_modules/.bin:${PATH}"
+. %{_datadir}/ovirt-engine-nodejs-modules/setup-env.sh
 
 # Build the application:
 webpack
