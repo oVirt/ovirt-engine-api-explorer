@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2016-2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -57,18 +57,14 @@ function Members (props) {
 }
 
 export default function Struct ({ type }) {
-  const attributes = type.attributes
-  const links = type.links
+  const members = type.attributes.concat(type.links)
   return (
     <div>
       <h2>{type.name} <small>struct</small></h2>
       <Doc concept={type}/>
 
-      <h3>Attributes summary</h3>
-      <Members members={attributes}/>
-
-      <h3>Links summary</h3>
-      <Members members={links}/>
+      <h3>Members summary</h3>
+      <Members members={members}/>
     </div>
   )
 }
