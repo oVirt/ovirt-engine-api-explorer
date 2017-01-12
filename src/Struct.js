@@ -21,9 +21,15 @@ import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function Member ({ member }) {
+  let icon = 'square-o'
+  if (member instanceof concepts.Link) {
+    icon = 'external-link'
+  }
   return (
     <tr>
-      <td>{member.name}</td>
+      <td>
+        <i className={'fa fa-' + icon}></i>{member.name}
+      </td>
       <td><Link concept={member.type}/></td>
       <td><Summary concept={member}/></td>
     </tr>

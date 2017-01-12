@@ -23,3 +23,9 @@ limitations under the License.
   color: #00618A;
   text-decoration: underline;
 }
+
+/* Increase the separation of Font Aswesome icons and the following text
+   inside table cells: */
+td > .fa {
+  margin-right: 5px;
+}
