@@ -22,18 +22,22 @@ import * as concepts from 'concepts'
 
 function Parameter ({ parameter }) {
   let direction = ''
+  let icon = ''
   if (parameter.in && !parameter.out) {
     direction = 'In'
+    icon = 'long-arrow-right'
   }
   else if (!parameter.in && parameter.out) {
     direction = 'Out'
+    icon = 'long-arrow-left'
   }
   else if (parameter.in && parameter.out) {
     direction = 'In/Out'
+    icon = 'arrows-h'
   }
   return (
     <tr>
-      <td>{parameter.name}</td>
+      <td><i className={'fa fa-' + icon}></i>{parameter.name}</td>
       <td><Link concept={parameter.type}/></td>
       <td>{direction}</td>
       <td><Summary concept={parameter}/></td>
