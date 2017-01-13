@@ -77,7 +77,7 @@ function analyzeDocument (data) {
   else {
     doc.title = ''
   }
-  doc.html = data.html 
+  doc.html = data.html
   return doc
 }
 
