@@ -80,13 +80,25 @@ export default function Method ({ params: { serviceId, methodId } }) {
   const methods = service.methods
   const method = concepts.Concept.find(methods, methodId)
   const parameters = method.parameters
+  let summary
+  if (parameters.length > 0) {
+    summary = (
+      <div>
+        <h3>Parameters summary</h3>
+        <Parameters parameters={parameters}/>
+      </div>
+    )
+  }
+  else {
+    summary = (
+      <div/>
+    )
+  }
   return (
     <div>
       <h2>{Names.render(method)}</h2>
       <Doc concept={method}/>
-
-      <h3>Parameters summary</h3>
-      <Parameters parameters={parameters}/>
+      {summary}
     </div>
   )
 }
