@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2016-2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,12 +22,26 @@ export default class Doc extends Component {
   render () {
     return <div/>
   }
+
   componentDidMount () {
-    const html = this.props.concept.html
-    const element = ReactDOM.findDOMNode(this)
-    $(element).html(html)
-    $('pre.highlightjs', element).each((index, value) => {
-      hljs.highlightBlock(value)
-    })
+    this.renderHtml()
+  }
+
+  componentDidUpdate () {
+    this.renderHtml()
+  }
+
+  renderHtml () {
+    const concept = this.props.concept
+    if (concept.dom == null && concept.html != null) {
+      concept.dom = $.parseHTML(concept.html)
+      $('pre.highlightjs', concept.dom).each((index, value) => {
+        hljs.highlightBlock(value)
+      })
+    }
+    if (concept.dom != null) {
+      const element = ReactDOM.findDOMNode(this)
+      $(element).empty().append(concept.dom)
+    }
   }
 }

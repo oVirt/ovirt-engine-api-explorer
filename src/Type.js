@@ -16,7 +16,6 @@ limitations under the License.
 
 import React from 'react'
 import Enum from 'Enum'
-import Link from 'Link'
 import Primitive from 'Primitive'
 import Struct from 'Struct'
 import * as concepts from 'concepts'

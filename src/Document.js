@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2016-2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,23 +15,16 @@ limitations under the License.
 */
 
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import hljs from 'highlight.js'
+import Doc from 'Doc'
 import * as concepts from 'concepts'
 
 export default class Document extends Component {
   render () {
+    // Find the document:
     const id = this.props.params.docId
     const doc = concepts.Concept.find(document.model.documents, id)
-    return (
-      <div dangerouslySetInnerHTML={{__html: doc.html}}/>
-    )
-  }
 
-  componentDidMount () {
-    const element = ReactDOM.findDOMNode(this)
-    $('pre.highlightjs', element).each((index, value) => {
-      hljs.highlightBlock(value)
-    })
+    // Return a doc component:
+    return <Doc concept={doc}/>
   }
 }
