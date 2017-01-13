@@ -38,7 +38,10 @@ function ParameterRow ({ parameter }) {
   }
   return (
     <tr>
-      <td><i className={'fa fa-' + icon}></i>{Names.render(parameter)}</td>
+      <td>
+        <i className={'fa fa-' + icon}></i>
+        <Link concept={parameter}/>
+      </td>
       <td><Link concept={parameter.type}/></td>
       <td>{direction}</td>
       <td><Summary concept={parameter}/></td>

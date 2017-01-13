@@ -27,6 +27,7 @@ import Document from 'Document'
 import Member from 'Member'
 import Menu from 'Menu'
 import Method from 'Method'
+import Parameter from 'Parameter'
 import Service from 'Service'
 import Services from 'Services'
 import Type from 'Type'
@@ -67,6 +68,7 @@ $.getJSON('model.json', function (data) {
       <Route path='/services' component={Services}/>
       <Route path='/services/:serviceId' component={Service}/>
       <Route path='/services/:serviceId/methods/:methodId' component={Method}/>
+      <Route path='/services/:serviceId/methods/:methodId/parameters/:parameterId' component={Parameter}/>
       <Redirect from='*' to={'/documents/' + home.id}/>
     </Router>
   ), document.getElementById('content'))
