@@ -30,7 +30,7 @@ function MemberRow ({ member }) {
     <tr>
       <td>
         <i className={'fa fa-' + icon}></i>
-        {Names.render(member)}
+        <Link concept={member}/>
       </td>
       <td><Link concept={member.type}/></td>
       <td><Summary concept={member}/></td>

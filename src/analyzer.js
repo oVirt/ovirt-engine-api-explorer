@@ -122,36 +122,35 @@ function analyzeStructType (data) {
   analyzeCommon(type, data)
 
   // Analyze the list of attributes:
-  type.attributes = data.attributes ? data.attributes.map(analyzeAttribute) : []
+  type.attributes = data.attributes ? data.attributes.map((item) => analyzeAttribute(type, item)) : []
 
   // Analyze the list of links:
-  type.links = data.links ? data.links.map(analyzeLink) : []
+  type.links = data.links ? data.links.map((item) => analyzeLink(type, item)) : []
 
   return type
 }
 
-function analyzeAttribute (data) {
-  const attribute = new concepts.Attribute()
-  analyzeCommon(attribute, data)
-
-  // Save the type specification, which will be later replaced by the reference to the corresponding type object:
-  if (data.type) {
-    attribute.type = data.type
-  }
-
-  return attribute
+function analyzeAttribute (declaringType, data) {
+  return analyzeStructMember(declaringType, new concepts.Attribute(), data)
 }
 
-function analyzeLink (data) {
-  const link = new concepts.Link()
-  analyzeCommon(link, data)
+function analyzeLink (declaringType, data) {
+  return analyzeStructMember(declaringType, new concepts.Link(), data)
+}
+
+function analyzeStructMember (declaringType, member, data) {
+  // Analyze the basic data:
+  analyzeCommon(member, data)
 
   // Save the type specification, which will be later replaced by the reference to the corresponding type object:
   if (data.type) {
-    link.type = data.type
+    member.type = data.type
   }
 
-  return link
+  // Save the declarig type:
+  member.declaringType = declaringType
+
+  return member
 }
 
 function analyzeService (data) {

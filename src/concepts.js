@@ -205,15 +205,21 @@ export class Service extends Concept {
 }
 
 /**
+ * A class that represents struct members, including attributes and links.
+ */
+export class StructMember extends Concept {
+}
+
+/**
  * A class that represents an attribute of an structured type.
  */
-export class Attribute extends Concept {
+export class Attribute extends StructMember {
 }
 
 /**
  * A class that represents a link of an structured type.
  */
-export class Link extends Concept {
+export class Link extends StructMember {
 }
 
 /**

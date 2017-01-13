@@ -24,6 +24,7 @@ import { Redirect, Router, Route, useRouterHistory } from 'react-router'
 import { createHashHistory } from 'history'
 
 import Document from 'Document'
+import Member from 'Member'
 import Menu from 'Menu'
 import Method from 'Method'
 import Service from 'Service'
@@ -61,6 +62,8 @@ $.getJSON('model.json', function (data) {
       <Route path='/documents/:docId' component={Document}/>
       <Route path='/types' component={Types}/>
       <Route path='/types/:typeId' component={Type}/>
+      <Route path='/types/:typeId/attributes/:memberId' component={Member}/>
+      <Route path='/types/:typeId/links/:memberId' component={Member}/>
       <Route path='/services' component={Services}/>
       <Route path='/services/:serviceId' component={Service}/>
       <Route path='/services/:serviceId/methods/:methodId' component={Method}/>

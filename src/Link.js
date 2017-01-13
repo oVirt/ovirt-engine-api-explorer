@@ -19,39 +19,53 @@ import Names from 'Names'
 import * as concepts from 'concepts'
 
 export default function Link ({ concept }) {
-  if (concept == null) {
-    return <span>-</span>
-  }
-  let text = Names.render(concept)
+  let text
   let href
-  if (concept instanceof concepts.Document) {
-    href = '#/documents/' + concept.id
-    text = concept.title
+  if (concept != null) {
+    text = buildText(concept)
+    href = buildHref(concept)
   }
-  else if (concept instanceof concepts.Type) {
-    if (concept instanceof concepts.ListType) {
-      href = '#/types/' + concept.element.id
-    }
-    else {
-      href = '#/types/' + concept.id
-    }
-  }
-  else if (concept instanceof concepts.Service) {
-    href = '#/services/' + concept.id
-  }
-  else if (concept instanceof concepts.Method) {
-    href =
-      '#/services/' + concept.service.id +
-      '/methods/' + concept.id
-  }
-  else if (concept instanceof concepts.Parameter) {
-    href =
-      '#/services/' + concept.method.service.id +
-      '/methods/' + concept.method.id +
-      '/parameters/' + concept.id
+  else {
+    text = '-'
+    href = null
   }
   if (href) {
     return <a href={href}>{text}</a>
   }
   return <span>{text}</span>
+}
+
+function buildText (concept) {
+  if (concept instanceof concepts.Document) {
+    return concept.title
+  }
+  return Names.render(concept)
+}
+
+function buildHref (concept) {
+  if (concept instanceof concepts.Document) {
+    return '#/documents/' + concept.id
+  }
+  if (concept instanceof concepts.Type) {
+    if (concept instanceof concepts.ListType) {
+      return buildHref(concept.element)
+    }
+    return '#/types/' + concept.id
+  }
+  if (concept instanceof concepts.Attribute) {
+    return buildHref(concept.declaringType) + '/attributes/' + concept.id
+  }
+  if (concept instanceof concepts.Link) {
+    return buildHref(concept.declaringType) + '/links/' + concept.id
+  }
+  if (concept instanceof concepts.Service) {
+    return '#/services/' + concept.id
+  }
+  if (concept instanceof concepts.Method) {
+    return buildHref(concept.service) + '/methods/' + concept.id
+  }
+  if (concept instanceof concepts.Parameter) {
+    return buildHref(concept.method) + '/parameters/' + concept.id
+  }
+  return ''
 }

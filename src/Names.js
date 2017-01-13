@@ -53,7 +53,7 @@ export default class Names {
    * @returns {String} The rendered name.
    */
   static render (concept) {
-    if (concept === null) {
+    if (concept == null) {
       return ''
     }
     const name = concept.name
