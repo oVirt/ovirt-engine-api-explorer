@@ -21,7 +21,7 @@ import Names from 'Names'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-function Member ({ member }) {
+function MemberRow ({ member }) {
   let icon = 'square-o'
   if (member instanceof concepts.Link) {
     icon = 'external-link'
@@ -38,11 +38,11 @@ function Member ({ member }) {
   )
 }
 
-function Members (props) {
+function MembersTable (props) {
   const members = props.members.slice(0)
   const rows = members
     .sort(concepts.Concept.compare)
-    .map((member) => <Member key={member.id} member={member}/>)
+    .map((member) => <MemberRow key={member.id} member={member}/>)
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
@@ -72,7 +72,7 @@ export default function Struct ({ type }) {
       <Doc concept={type}/>
 
       <h3>Members summary</h3>
-      <Members members={members}/>
+      <MembersTable members={members}/>
     </div>
   )
 }
