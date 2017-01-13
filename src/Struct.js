@@ -17,6 +17,7 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 import Link from 'Link'
+import Names from 'Names'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
@@ -28,7 +29,8 @@ function Member ({ member }) {
   return (
     <tr>
       <td>
-        <i className={'fa fa-' + icon}></i>{member.name.toString()}
+        <i className={'fa fa-' + icon}></i>
+        {Names.render(member)}
       </td>
       <td><Link concept={member.type}/></td>
       <td><Summary concept={member}/></td>
@@ -66,7 +68,7 @@ export default function Struct ({ type }) {
   const members = type.attributes.concat(type.links)
   return (
     <div>
-      <h2>{type.name.toString()} <small>struct</small></h2>
+      <h2>{Names.render(type)} <small>struct</small></h2>
       <Doc concept={type}/>
 
       <h3>Members summary</h3>

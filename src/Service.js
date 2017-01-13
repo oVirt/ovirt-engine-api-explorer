@@ -95,7 +95,7 @@ export default function Service ({ params: { serviceId } }) {
   const locators = service.locators
   return (
     <div>
-      <h2>{service.name.toString()}</h2>
+      <h2>{Names.render(service)}</h2>
       <Doc concept={service}/>
 
       <h3>Method summary</h3>
