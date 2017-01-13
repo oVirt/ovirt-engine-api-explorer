@@ -91,18 +91,47 @@ function Locators ({ locators }) {
 export default function Service ({ params: { serviceId } }) {
   const services = document.model.services
   const service = concepts.Concept.find(services, serviceId)
+
+  // Create the summary of methods:
   const methods = service.methods
+  let methodsSummary
+  if (methods.length > 0) {
+    methodsSummary = (
+      <div>
+        <h3>Methods summary</h3>
+        <Methods methods={methods}/>
+      </div>
+    )
+  }
+  else {
+    methodsSummary = (
+      <div/>
+    )
+  }
+
+  // Create the summary of locators:
   const locators = service.locators
+  let locatorsSummary
+  if (locators.length > 0) {
+    locatorsSummary = (
+      <div>
+        <h3>Locators summary</h3>
+        <Locators locators={locators}/>
+      </div>
+    )
+  }
+  else {
+    locatorsSummary = (
+      <div/>
+    )
+  }
+
   return (
     <div>
       <h2>{Names.render(service)}</h2>
       <Doc concept={service}/>
-
-      <h3>Method summary</h3>
-      <Methods methods={methods}/>
-
-      <h3>Locators summary</h3>
-      <Locators locators={locators}/>
+      {methodsSummary}
+      {locatorsSummary}
     </div>
   )
 }
