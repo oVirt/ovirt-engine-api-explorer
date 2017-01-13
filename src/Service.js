@@ -17,6 +17,7 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 import Link from 'Link'
+import Names from 'Names'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
@@ -55,7 +56,7 @@ function Methods ({ methods }) {
 function Locator ({ locator }) {
   return (
     <tr>
-      <td>{locator.name.toString()}</td>
+      <td>{Names.render(locator)}</td>
       <td><Link concept={locator.service}/></td>
       <td><Summary concept={locator}/></td>
     </tr>

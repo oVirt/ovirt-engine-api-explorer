@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
-import Doc from 'Doc'
-import Names from 'Names'
-
-export default function Primitive ({ type }) {
-  return (
-    <div>
-      <h2>{Names.render(type)} <small>primitive</small></h2>
-      <Doc concept={type}/>
-    </div>
-  )
+export default class Words {
+  /**
+   * Capitalizes the given word, conerting the first charater to upper case and the rest of the characters to lower
+   * case.
+   *
+   * @param {String} word - The word to capitalize.
+   * @returns {String} The capitalized word.
+   */
+  static capitalized (word) {
+    if (word == null || word.length === 0) {
+      return word
+    }
+    return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase()
+  }
 }

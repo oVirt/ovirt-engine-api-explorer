@@ -16,13 +16,14 @@ limitations under the License.
 
 import React from 'react'
 import Doc from 'Doc'
+import Names from 'Names'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function Value ({ value }) {
   return (
     <tr>
-      <td>{value.name.toString()}</td>
+      <td>{Names.render(value)}</td>
       <td><Summary concept={value}/></td>
     </tr>
   )
@@ -56,7 +57,7 @@ function Values ({ type }) {
 export default function Enum ({ type }) {
   return (
     <div>
-      <h2>{type.name.toString()} <small>enum</small></h2>
+      <h2>{Names.render(type)} <small>enum</small></h2>
       <Doc concept={type}/>
       <Values type={type}/>
     </div>

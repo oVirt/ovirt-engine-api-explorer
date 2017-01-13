@@ -17,6 +17,7 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 import Link from 'Link'
+import Names from 'Names'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
@@ -37,7 +38,7 @@ function Parameter ({ parameter }) {
   }
   return (
     <tr>
-      <td><i className={'fa fa-' + icon}></i>{parameter.name.toString()}</td>
+      <td><i className={'fa fa-' + icon}></i>{Names.render(parameter)}</td>
       <td><Link concept={parameter.type}/></td>
       <td>{direction}</td>
       <td><Summary concept={parameter}/></td>
@@ -81,7 +82,7 @@ export default function Method ({ params: { serviceId, methodId } }) {
   const parameters = method.parameters
   return (
     <div>
-      <h2>{method.name.toString()}</h2>
+      <h2>{Names.render(method)}</h2>
       <Doc concept={method}/>
 
       <h3>Parameters summary</h3>

@@ -15,13 +15,14 @@ limitations under the License.
 */
 
 import React from 'react'
+import Names from 'Names'
 import * as concepts from 'concepts'
 
 export default function Link ({ concept }) {
   if (concept == null) {
     return <span>-</span>
   }
-  let text = concept.name.toString()
+  let text = Names.render(concept)
   let href
   if (concept instanceof concepts.Document) {
     href = '#/documents/' + concept.id
@@ -29,9 +30,7 @@ export default function Link ({ concept }) {
   }
   else if (concept instanceof concepts.Type) {
     if (concept instanceof concepts.ListType) {
-      const item = concept.element
-      href = '#/types/' + item.id
-      text = item.name.toString() + '[]'
+      href = '#/types/' + concept.element.id
     }
     else {
       href = '#/types/' + concept.id
@@ -50,12 +49,6 @@ export default function Link ({ concept }) {
       '#/services/' + concept.method.service.id +
       '/methods/' + concept.method.id +
       '/parameters/' + concept.id
-  }
-  else if (concept) {
-    text = concept.toString()
-  }
-  else {
-    text = '?'
   }
   if (href) {
     return <a href={href}>{text}</a>
