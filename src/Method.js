@@ -21,7 +21,7 @@ import Names from 'Names'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
-function Parameter ({ parameter }) {
+function ParameterRow ({ parameter }) {
   let direction = ''
   let icon = ''
   if (parameter.in && !parameter.out) {
@@ -46,11 +46,11 @@ function Parameter ({ parameter }) {
   )
 }
 
-function Parameters (props) {
+function ParametersTable (props) {
   const parameters = props.parameters.slice(0)
   const rows = parameters
     .sort(concepts.Concept.compare)
-    .map((parameter) => <Parameter key={parameter.id} parameter={parameter}/>)
+    .map((parameter) => <ParameterRow key={parameter.id} parameter={parameter}/>)
   return (
     <div>
       <table className='datatable table table-striped table-bordered'>
@@ -85,7 +85,7 @@ export default function Method ({ params: { serviceId, methodId } }) {
     summary = (
       <div>
         <h3>Parameters summary</h3>
-        <Parameters parameters={parameters}/>
+        <ParametersTable parameters={parameters}/>
       </div>
     )
   }
