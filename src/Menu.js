@@ -46,6 +46,7 @@ export default function Menu () {
       <div className='nav-category'>
         <h2>Reference</h2>
         <ul className='nav nav-pills nav-stacked'>
+          <li><a href='#/requests'><i className='fa fa-send-o'></i>Requests</a></li>
           <li><a href='#/services'><i className='fa fa-cog'></i>Services</a></li>
           <li><a href='#/types'><i className='fa fa-file-text-o'></i>Types</a></li>
         </ul>

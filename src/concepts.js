@@ -223,27 +223,105 @@ export class Link extends StructMember {
 }
 
 /**
- * A class that represents a method of a service.
- */
-export class Method extends Concept {
-}
-
-/**
  * A class that represents a method parameter.
  */
 export class Parameter extends Concept {
 }
 
 /**
+ * This class contains the fields and methods common to all the members of a service, including methods and locators.
+ */
+export class ServiceMember extends Concept {
+}
+
+/**
+ * A class that represents a method of a service.
+ */
+export class Method extends ServiceMember {
+  /**
+   * Determines if this is an action method, i.e., any method whose name isn't 'Add', 'Get', 'List', 'Update'
+   * or 'Remove'.
+   *
+   * @returns {Boolean} Returns 'true' if the method is an action, 'false' otherwise.
+   */
+  isAction () {
+    const words = this._name.words
+    if (words.length > 1) {
+      return true
+    }
+    switch (words[0]) {
+      case 'add':
+      case 'get':
+      case 'list':
+      case 'update':
+      case 'remove':
+        return false
+      default:
+        return true
+    }
+  }
+}
+
+/**
  * A class that represents a service locator.
  */
-export class Locator extends Concept {
+export class Locator extends ServiceMember {
+}
+
+/**
+ * This class represents a specific point of the services tree, composed of the path from the root service (a list
+ * of locators) and a method.
+ */
+export class Point {
 }
 
 /**
  * A class that represents a model.
  */
 export class Model extends Concept {
+  get points () {
+    if (this._points == null) {
+      this._points = this.calculatePoints()
+    }
+    return this._points
+  }
+
+  calculatePoints () {
+    // First we need to find all the possible paths:
+    const paths = []
+
+    // We will start the walk with a simple path for each locator of the root service:
+    const pending = this.root.locators.map((locator) => [locator])
+
+    // Extract paths from the pending queue and expand them, till the queue is empty:
+    while (pending.length > 0) {
+      const current = pending.pop()
+      paths.push(current)
+      const service = current[current.length - 1].service
+      for (let locator of service.locators) {
+        const next = current.slice()
+        next.push(locator)
+        pending.push(next)
+      }
+    }
+
+    // Now, for each path, we need to create a point for each method:
+    const points = []
+    for (let path of paths) {
+      const length = path.length
+      if (length > 0) {
+        const service = path[length - 1].service
+        for (let method of service.methods) {
+          const point = new Point()
+          point.path = path
+          point.method = method
+          points.push(point)
+        }
+      }
+    }
+
+    return points
+  }
 }
 
 /**
@@ -251,3 +329,4 @@ export class Model extends Concept {
  */
 export class Document extends Concept {
 }
+

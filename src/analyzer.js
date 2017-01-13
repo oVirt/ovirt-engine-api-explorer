@@ -62,6 +62,11 @@ export function analyzeModel (data) {
     }
   }
 
+  // Find the root service:
+  if (data.root != null) {
+    model.root = concepts.Concept.find(model.services, data.root)
+  }
+
   return model
 }
 
@@ -212,6 +217,14 @@ function analyzeLocator (data) {
 
   // Save the identifier of the target service, it will be later replaced by the reference to the actual service:
   locator.service = data.service
+
+  // Analyze the list of parameters:
+  locator.parameters = []
+  if (data.parameters) {
+    locator.parameters = data.parameters.map((parameter) => {
+      return analyzeParameter(parameter)
+    })
+  }
 
   return locator
 }

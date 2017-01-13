@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import React from 'react'
+import Hrefs from 'Hrefs'
 import Names from 'Names'
 import * as concepts from 'concepts'
 
@@ -43,29 +44,5 @@ function buildText (concept) {
 }
 
 function buildHref (concept) {
-  if (concept instanceof concepts.Document) {
-    return '#/documents/' + concept.id
-  }
-  if (concept instanceof concepts.Type) {
-    if (concept instanceof concepts.ListType) {
-      return buildHref(concept.element)
-    }
-    return '#/types/' + concept.id
-  }
-  if (concept instanceof concepts.Attribute) {
-    return buildHref(concept.declaringType) + '/attributes/' + concept.id
-  }
-  if (concept instanceof concepts.Link) {
-    return buildHref(concept.declaringType) + '/links/' + concept.id
-  }
-  if (concept instanceof concepts.Service) {
-    return '#/services/' + concept.id
-  }
-  if (concept instanceof concepts.Method) {
-    return buildHref(concept.service) + '/methods/' + concept.id
-  }
-  if (concept instanceof concepts.Parameter) {
-    return buildHref(concept.method) + '/parameters/' + concept.id
-  }
-  return ''
+  return Hrefs.render(concept)
 }
