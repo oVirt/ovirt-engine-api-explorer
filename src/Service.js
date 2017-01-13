@@ -55,7 +55,7 @@ function Methods ({ methods }) {
 function Locator ({ locator }) {
   return (
     <tr>
-      <td>{locator.name}</td>
+      <td>{locator.name.toString()}</td>
       <td><Link concept={locator.service}/></td>
       <td><Summary concept={locator}/></td>
     </tr>
@@ -94,7 +94,7 @@ export default function Service ({ params: { serviceId } }) {
   const locators = service.locators
   return (
     <div>
-      <h2>{service.name}</h2>
+      <h2>{service.name.toString()}</h2>
       <Doc concept={service}/>
 
       <h3>Method summary</h3>

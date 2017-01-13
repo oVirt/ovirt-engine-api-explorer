@@ -20,7 +20,7 @@ import Doc from 'Doc'
 export default function Primitive ({ type }) {
   return (
     <div>
-      <h2>{type.name} <small>primitive</small></h2>
+      <h2>{type.name.toString()} <small>primitive</small></h2>
       <Doc concept={type}/>
     </div>
   )

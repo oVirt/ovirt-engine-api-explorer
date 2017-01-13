@@ -224,7 +224,7 @@ function analyzeCommon (concept, data) {
 
 function analyzeName (concept, data) {
   concept.id = data.name
-  concept.name = data.name
+  concept.name = concepts.NameParser.parseUsingSeparator(data.name, '_')
 }
 
 function analyzeDoc (concept, data) {

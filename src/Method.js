@@ -37,7 +37,7 @@ function Parameter ({ parameter }) {
   }
   return (
     <tr>
-      <td><i className={'fa fa-' + icon}></i>{parameter.name}</td>
+      <td><i className={'fa fa-' + icon}></i>{parameter.name.toString()}</td>
       <td><Link concept={parameter.type}/></td>
       <td>{direction}</td>
       <td><Summary concept={parameter}/></td>
@@ -81,7 +81,7 @@ export default function Method ({ params: { serviceId, methodId } }) {
   const parameters = method.parameters
   return (
     <div>
-      <h2>{method.name}</h2>
+      <h2>{method.name.toString()}</h2>
       <Doc concept={method}/>
 
       <h3>Parameters summary</h3>

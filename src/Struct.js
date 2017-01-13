@@ -28,7 +28,7 @@ function Member ({ member }) {
   return (
     <tr>
       <td>
-        <i className={'fa fa-' + icon}></i>{member.name}
+        <i className={'fa fa-' + icon}></i>{member.name.toString()}
       </td>
       <td><Link concept={member.type}/></td>
       <td><Summary concept={member}/></td>
@@ -66,7 +66,7 @@ export default function Struct ({ type }) {
   const members = type.attributes.concat(type.links)
   return (
     <div>
-      <h2>{type.name} <small>struct</small></h2>
+      <h2>{type.name.toString()} <small>struct</small></h2>
       <Doc concept={type}/>
 
       <h3>Members summary</h3>

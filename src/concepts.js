@@ -21,9 +21,114 @@ limitations under the License.
  */
 
 /**
+ * This class represents a name formed of multiple words. It is intended to simplify the use of different strategies
+ * for representing names as strings, like using different separators or using camel case. The words that form the
+ * name are stored separated, so there is no need to parse the name each time that the words are needed.
+ */
+export class Name {
+  /**
+   * Creates a new word using the given array of words.
+   *
+   * @param {String[]) words - The words that will be used to construct the name.
+   */
+  constructor (words) {
+    this._words = words.map((word) => word.toLowerCase())
+  }
+
+  /**
+   * Returns the array of words of this name. The returned array is a copy of the one used internally, so any changes
+   * to it won't have any effect on this name, and changes in the name won't affect the returned array.
+   *
+   * @returns {String[]} A copy of the list of words of the name.
+   */
+  get words () {
+    return this._words.slice()
+  }
+
+  /**
+   * Returns a string representation of this name, consisting on the list of words of the name separated by underscores.
+   *
+   * @returns {String} The string representation of the name.
+   */
+  toString () {
+    return this.words.join('_')
+  }
+
+  /**
+   * Compares two names lexicographically.
+   *
+   * @param {Concept} left - The first name to compare.
+   * @param {Concept} right - The second name to compare.
+   */
+  static compare (left, right) {
+    const leftSize = left._words.size()
+    const rightSize = right._words.size()
+    const minSize = Math.min(leftSize, rightSize)
+    for (var i = 0; i < minSize; i++) {
+      const leftWord = left._words[i]
+      const rightWord = right._words[i]
+      const result = leftWord.localeCompare(rightWord)
+      if (result !== 0) {
+        return result
+      }
+    }
+    return leftSize - rightSize
+  }
+}
+
+/**
+ * This class contains methods useful for converting strings to names.
+ */
+export class NameParser {
+  /**
+   * Separates the given text into words, using the given separator character, and creates a new name containing
+   * those words. For example, to convert the text "my_favorite_fruit" into a name the method can be used as
+   * follows:
+   *
+   * <pre>
+   * const name = NameParser.parseUsingSeparator('my_favorite_fruit', '_')
+   * </pre>
+   *
+   * @param {String} text - The text to process.
+   * @param {String} separator - The character that separates words.
+   * @returns {Name} The name composed of the words extracted from the text.
+   */
+  static parseUsingSeparator (text, separator) {
+    return new Name(text.split(separator))
+  }
+}
+
+/**
  * A class that represents a model concept.
  */
 export class Concept {
+  /**
+   * Returns the name of this concept.
+   *
+   * @returns {Name} The name of the concept.
+   */
+  get name () {
+    return this._name
+  }
+
+  /**
+   * Sets the name of this concept.
+   *
+   * @param {Name} name - The new name for the concept.
+   */
+  set name (name) {
+    this._name = name
+  }
+
+  /**
+   * Generates a string representation of this concept, usually just its name.
+   *
+   * @returns {String} The string representation of the concept.
+   */
+  toString () {
+    return this._name !== null ? this._name.toString() : ''
+  }
+
   /**
    * Compares two concepts by name, to be used with the "sort" function.
    *

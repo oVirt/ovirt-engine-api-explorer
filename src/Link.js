@@ -21,7 +21,7 @@ export default function Link ({ concept }) {
   if (concept == null) {
     return <span>-</span>
   }
-  let text = concept.name
+  let text = concept.name.toString()
   let href
   if (concept instanceof concepts.Document) {
     href = '#/documents/' + concept.id
@@ -31,7 +31,7 @@ export default function Link ({ concept }) {
     if (concept instanceof concepts.ListType) {
       const item = concept.element
       href = '#/types/' + item.id
-      text = item.name + '[]'
+      text = item.name.toString() + '[]'
     }
     else {
       href = '#/types/' + concept.id
