@@ -36,13 +36,13 @@ export class Name {
   }
 
   /**
-   * Returns the array of words of this name. The returned array is a copy of the one used internally, so any changes
-   * to it won't have any effect on this name, and changes in the name won't affect the returned array.
+   * Returns the array of words of this name. The returned array is the one used internally, so any changes
+   * to it will affect any other uses of the name.
    *
-   * @returns {String[]} A copy of the list of words of the name.
+   * @returns {String[]} A array of words of the name.
    */
   get words () {
-    return this._words.slice()
+    return this._words
   }
 
   /**
