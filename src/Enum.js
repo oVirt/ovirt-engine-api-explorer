@@ -17,13 +17,17 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 import Names from 'Names'
+import Since from 'Since'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function Value ({ value }) {
   return (
     <tr>
-      <td>{Names.render(value)}</td>
+      <td>
+        {Names.render(value)}
+        <Since concept={value}/>
+      </td>
       <td><Summary concept={value}/></td>
     </tr>
   )
