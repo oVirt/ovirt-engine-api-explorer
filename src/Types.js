@@ -19,6 +19,7 @@ import ReactDOM from 'react-dom'
 import Link from 'Link'
 import Since from 'Since'
 import Summary from 'Summary'
+import Tables from 'Tables'
 import * as concepts from 'concepts'
 
 function Row ({ type }) {
@@ -72,12 +73,6 @@ export default class Types extends Component {
 
   componentDidMount () {
     const element = ReactDOM.findDOMNode(this)
-    $('.datatable', element).dataTable({
-      drawCallback (settings) {
-        if ($('.sidebar-pf').length > 0) {
-          $(document).sidebar()
-        }
-      },
-    })
+    Tables.initialize(element)
   }
 }

@@ -18,6 +18,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Hrefs from 'Hrefs'
 import Names from 'Names'
+import Tables from 'Tables'
 
 function Row ({ point }) {
   const method = buildMethodCell(point)
@@ -69,14 +70,7 @@ export default class Requests extends Component {
 
   componentDidMount () {
     const element = ReactDOM.findDOMNode(this)
-    $('.datatable', element).dataTable({
-      drawCallback (settings) {
-        if ($('.sidebar-pf').length > 0) {
-          $(document).sidebar()
-        }
-      },
-      order: [[1, 'asc']],
-    })
+    Tables.initialize(element, [[1, 'asc']])
   }
 }
 
