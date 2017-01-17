@@ -14,11 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import Doc from 'Doc'
 import Names from 'Names'
 import Since from 'Since'
 import Summary from 'Summary'
+import Tables from 'Tables'
 import * as concepts from 'concepts'
 
 function Value ({ value }) {
@@ -58,12 +60,20 @@ function Values ({ type }) {
   )
 }
 
-export default function Enum ({ type }) {
-  return (
-    <div>
-      <h2>{Names.render(type)} <small>enum</small></h2>
-      <Doc concept={type}/>
-      <Values type={type}/>
-    </div>
-  )
+export default class Enum extends Component {
+  render () {
+    const type = this.props.type
+    return (
+      <div>
+        <h2>{Names.render(type)} <small>enum</small></h2>
+        <Doc concept={type}/>
+        <Values type={type}/>
+      </div>
+    )
+  }
+
+  componentDidMount () {
+    const element = ReactDOM.findDOMNode(this)
+    Tables.initialize(element)
+  }
 }

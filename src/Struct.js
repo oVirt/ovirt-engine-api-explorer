@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import Doc from 'Doc'
 import Link from 'Link'
 import Names from 'Names'
 import Since from 'Since'
 import Summary from 'Summary'
+import Tables from 'Tables'
 import * as concepts from 'concepts'
 
 function MemberRow ({ member }) {
@@ -69,15 +71,26 @@ function MembersTable (props) {
   )
 }
 
-export default function Struct ({ type }) {
-  const members = type.attributes.concat(type.links)
-  return (
-    <div>
-      <h2>{Names.render(type)} <small>struct</small></h2>
-      <Doc concept={type}/>
+export default class Struct extends Component {
+  render () {
+    // Find th emember:
+    const type = this.props.type
+    const members = type.attributes.concat(type.links)
 
-      <h3>Members summary</h3>
-      <MembersTable members={members}/>
-    </div>
-  )
+    // Render the component:
+    return (
+      <div>
+        <h2>{Names.render(type)} <small>struct</small></h2>
+        <Doc concept={type}/>
+
+        <h3>Members summary</h3>
+        <MembersTable members={members}/>
+      </div>
+    )
+  }
+
+  componentDidMount () {
+    const element = ReactDOM.findDOMNode(this)
+    Tables.initialize(element)
+  }
 }

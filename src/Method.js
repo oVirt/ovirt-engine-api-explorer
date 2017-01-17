@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import Doc from 'Doc'
 import Link from 'Link'
 import Names from 'Names'
 import Since from 'Since'
 import Summary from 'Summary'
+import Tables from 'Tables'
 import * as concepts from 'concepts'
 
 function ParameterRow ({ parameter }) {
@@ -79,31 +81,45 @@ function ParametersTable (props) {
   )
 }
 
-export default function Method ({ params: { serviceId, methodId } }) {
-  const services = document.model.services
-  const service = concepts.Concept.find(services, serviceId)
-  const methods = service.methods
-  const method = concepts.Concept.find(methods, methodId)
-  const parameters = method.parameters
-  let summary
-  if (parameters.length > 0) {
-    summary = (
+export default class Method extends Component {
+  render () {
+    // Find the method:
+    const serviceId = this.props.params.serviceId
+    const methodId = this.props.params.methodId
+    const services = document.model.services
+    const service = concepts.Concept.find(services, serviceId)
+    const methods = service.methods
+    const method = concepts.Concept.find(methods, methodId)
+    const parameters = method.parameters
+
+    // Calculate the summary:
+    let summary
+    if (parameters.length > 0) {
+      summary = (
+        <div>
+          <h3>Parameters summary</h3>
+          <ParametersTable parameters={parameters}/>
+        </div>
+      )
+    }
+    else {
+      summary = (
+        <div/>
+      )
+    }
+
+    // Render the component:
+    return (
       <div>
-        <h3>Parameters summary</h3>
-        <ParametersTable parameters={parameters}/>
+        <h2>{Names.render(method)}</h2>
+        <Doc concept={method}/>
+        {summary}
       </div>
     )
   }
-  else {
-    summary = (
-      <div/>
-    )
+
+  componentDidMount () {
+    const element = ReactDOM.findDOMNode(this)
+    Tables.initialize(element)
   }
-  return (
-    <div>
-      <h2>{Names.render(method)}</h2>
-      <Doc concept={method}/>
-      {summary}
-    </div>
-  )
 }

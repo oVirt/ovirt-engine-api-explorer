@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import Doc from 'Doc'
 import Link from 'Link'
 import Names from 'Names'
 import Since from 'Since'
 import Summary from 'Summary'
+import Tables from 'Tables'
 import * as concepts from 'concepts'
 
 function Method ({ method }) {
@@ -92,50 +94,59 @@ function Locators ({ locators }) {
   )
 }
 
-export default function Service ({ params: { serviceId } }) {
-  const services = document.model.services
-  const service = concepts.Concept.find(services, serviceId)
+export default class Service extends Component {
+  render () {
+    // Find the service:
+    const serviceId = this.props.params.serviceId
+    const services = document.model.services
+    const service = concepts.Concept.find(services, serviceId)
 
-  // Create the summary of methods:
-  const methods = service.methods
-  let methodsSummary
-  if (methods.length > 0) {
-    methodsSummary = (
+    // Create the summary of methods:
+    const methods = service.methods
+    let methodsSummary
+    if (methods.length > 0) {
+      methodsSummary = (
+        <div>
+          <h3>Methods summary</h3>
+          <Methods methods={methods}/>
+        </div>
+      )
+    }
+    else {
+      methodsSummary = (
+        <div/>
+      )
+    }
+
+    // Create the summary of locators:
+    const locators = service.locators
+    let locatorsSummary
+    if (locators.length > 0) {
+      locatorsSummary = (
+        <div>
+          <h3>Locators summary</h3>
+          <Locators locators={locators}/>
+        </div>
+      )
+    }
+    else {
+      locatorsSummary = (
+        <div/>
+      )
+    }
+
+    return (
       <div>
-        <h3>Methods summary</h3>
-        <Methods methods={methods}/>
+        <h2>{Names.render(service)}</h2>
+        <Doc concept={service}/>
+        {methodsSummary}
+        {locatorsSummary}
       </div>
     )
   }
-  else {
-    methodsSummary = (
-      <div/>
-    )
-  }
 
-  // Create the summary of locators:
-  const locators = service.locators
-  let locatorsSummary
-  if (locators.length > 0) {
-    locatorsSummary = (
-      <div>
-        <h3>Locators summary</h3>
-        <Locators locators={locators}/>
-      </div>
-    )
+  componentDidMount () {
+    const element = ReactDOM.findDOMNode(this)
+    Tables.initialize(element)
   }
-  else {
-    locatorsSummary = (
-      <div/>
-    )
-  }
-
-  return (
-    <div>
-      <h2>{Names.render(service)}</h2>
-      <Doc concept={service}/>
-      {methodsSummary}
-      {locatorsSummary}
-    </div>
-  )
 }
