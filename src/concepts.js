@@ -99,6 +99,18 @@ export class NameParser {
 }
 
 /**
+ * A class that represents an annotation.
+ */
+export class Annotation {
+}
+
+/**
+ * A class that represents a parameter of an annotation.
+ */
+export class AnnotationParameter {
+}
+
+/**
  * A class that represents a model concept.
  */
 export class Concept {

@@ -17,13 +17,17 @@ limitations under the License.
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Link from 'Link'
+import Since from 'Since'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function Row ({ service }) {
   return (
     <tr>
-      <td><Link concept={service}/></td>
+      <td>
+        <Link concept={service}/>
+        <Since concept={service}/>
+      </td>
       <td><Summary concept={service}/></td>
     </tr>
   )

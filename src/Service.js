@@ -18,13 +18,17 @@ import React from 'react'
 import Doc from 'Doc'
 import Link from 'Link'
 import Names from 'Names'
+import Since from 'Since'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function Method ({ method }) {
   return (
     <tr>
-      <td><Link concept={method}/></td>
+      <td>
+        <Link concept={method}/>
+        <Since concept={method}/>
+      </td>
       <td><Summary concept={method}/></td>
     </tr>
   )

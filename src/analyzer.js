@@ -232,11 +232,12 @@ function analyzeLocator (data) {
 function analyzeCommon (concept, data) {
   analyzeName(concept, data)
   analyzeDoc(concept, data)
+  analyzeAnnotations(concept, data)
 }
 
-function analyzeName (concept, data) {
-  concept.id = data.name
-  concept.name = concepts.NameParser.parseUsingSeparator(data.name, '_')
+function analyzeName (named, data) {
+  named.id = data.name
+  named.name = concepts.NameParser.parseUsingSeparator(data.name, '_')
 }
 
 function analyzeDoc (concept, data) {
@@ -256,6 +257,24 @@ function analyzeDoc (concept, data) {
     concept.doc = ''
     concept.html = ''
   }
+}
+
+function analyzeAnnotations (concept, data) {
+  concept.annotations = data.annotations ? data.annotations.map(analyzeAnnotation) : []
+}
+
+function analyzeAnnotation (data) {
+  const annotation = new concepts.Annotation()
+  analyzeName(annotation, data)
+  annotation.parameters = data.parameters ? data.parameters.map(analyzeAnnotationParameter) : []
+  return annotation
+}
+
+function analyzeAnnotationParameter (data) {
+  const parameter = new concepts.AnnotationParameter()
+  analyzeName(parameter, data)
+  parameter.values = data.values ? data.values : []
+  return parameter
 }
 
 /**

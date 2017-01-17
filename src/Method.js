@@ -18,6 +18,7 @@ import React from 'react'
 import Doc from 'Doc'
 import Link from 'Link'
 import Names from 'Names'
+import Since from 'Since'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
@@ -41,6 +42,7 @@ function ParameterRow ({ parameter }) {
       <td>
         <i className={'fa fa-' + icon}></i>
         <Link concept={parameter}/>
+        <Since concept={parameter}/>
       </td>
       <td><Link concept={parameter.type}/></td>
       <td>{direction}</td>

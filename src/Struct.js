@@ -18,19 +18,24 @@ import React from 'react'
 import Doc from 'Doc'
 import Link from 'Link'
 import Names from 'Names'
+import Since from 'Since'
 import Summary from 'Summary'
 import * as concepts from 'concepts'
 
 function MemberRow ({ member }) {
+  // Determine what icon to use:
   let icon = 'square-o'
   if (member instanceof concepts.Link) {
     icon = 'external-link'
   }
+
+  // Render the row:
   return (
     <tr>
       <td>
         <i className={'fa fa-' + icon}></i>
         <Link concept={member}/>
+        <Since concept={member}/>
       </td>
       <td><Link concept={member.type}/></td>
       <td><Summary concept={member}/></td>
