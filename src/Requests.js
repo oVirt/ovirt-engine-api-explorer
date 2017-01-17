@@ -18,15 +18,20 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Hrefs from 'Hrefs'
 import Names from 'Names'
+import Since from 'Since'
+import Summary from 'Summary'
 import Tables from 'Tables'
 
 function Row ({ point }) {
-  const method = buildMethodCell(point)
-  const path = buildPathCell(point)
+  const verb = buildVerb(point)
+  const path = buildPath(point)
+  const method = point.method
   return (
     <tr>
-      <td>{method}</td>
-      <td>{path}</td>
+      <td>
+        <div>{verb} {path} <Since concept={method}/></div>
+        <Summary concept={method}/>
+      </td>
     </tr>
   )
 }
@@ -57,8 +62,7 @@ export default class Requests extends Component {
           </colgroup>
           <thead>
             <tr>
-              <th>Method</th>
-              <th>Path</th>
+              <th>Request</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
@@ -70,11 +74,11 @@ export default class Requests extends Component {
 
   componentDidMount () {
     const element = ReactDOM.findDOMNode(this)
-    Tables.initialize(element, [[1, 'asc']])
+    Tables.initialize(element)
   }
 }
 
-function buildMethodCell (point) {
+function buildVerb (point) {
   // Calculate the text:
   let text
   const method = point.method
@@ -106,47 +110,37 @@ function buildMethodCell (point) {
   return <a href={href}>{text}</a>
 }
 
-function buildPathCell (point) {
+function buildPath (point) {
   // This list will hold the segments:
-  let segments = []
-  segments.push(<span>/ovirt-engine/api</span>)
+  let path = '/ovirt-engine/api'
 
   // Add the segments for the locator:
   for (let locator of point.path) {
-    segments.push(<span>/</span>)
-    segments.push(buildLocatorSegment(locator))
+    path += '/'
+    path += buildLocatorSegment(locator)
   }
 
   // If the method is an action, then add the segment for the action:
   const method = point.method
   if (method.isAction()) {
-    segments.push(<span>/</span>)
-    segments.push(buildMethodSegment(method))
+    path += '/'
+    path += buildMethodSegment(method)
   }
 
   // Create the cell:
-  return <span>{segments}</span>
+  return <span>{path}</span>
 }
 
 function buildLocatorSegment (locator) {
-  const text = Names.lowerJoined(locator.name, '')
-  const href = Hrefs.render(locator.service)
+  let text = Names.lowerJoined(locator.name, '')
   const parameters = locator.parameters
   if (parameters.length > 0) {
     const id = Names.render(parameters[0])
-    return (
-      <span>{'{'}<a href={href}>{text}</a>:{id}{'}'}</span>
-    )
+    text = '{' + text + ':' + id + '}'
   }
-  return (
-    <a href={href}>{text}</a>
-  )
+  return text
 }
 
 function buildMethodSegment (method) {
-  const text = Names.lowerJoined(method.name, '')
-  const href = Hrefs.render(method)
-  return (
-    <a href={href}>{text}</a>
-  )
+  return Names.lowerJoined(method.name, '')
 }
