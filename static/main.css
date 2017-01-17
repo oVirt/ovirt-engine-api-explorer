@@ -30,6 +30,11 @@ td > .fa {
   margin-right: 5px;
 }
 
+/* Mark deprecated text: */
+.deprecated {
+  text-decoration: line-through;
+}
+
 /* Styles for Asciidoctor admonitions: */
 .admonitionblock {
   margin-bottom: 1.25em;

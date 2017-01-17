@@ -20,6 +20,16 @@ import Names from 'Names'
 import * as concepts from 'concepts'
 
 export default function Link ({ concept }) {
+  // Check if the concept is deprecated:
+  let style = ''
+  if (concept && concept.annotations) {
+    const deprecated = concepts.Concept.find(concept.annotations, 'deprecated') != null
+    if (deprecated) {
+      style = deprecated ? 'deprecated' : ''
+    }
+  }
+
+  // Calculate the text and the href of the link:
   let text
   let href
   if (concept != null) {
@@ -30,10 +40,12 @@ export default function Link ({ concept }) {
     text = '-'
     href = null
   }
+
+  // Render the link:
   if (href) {
-    return <a href={href}>{text}</a>
+    return <a className={style} href={href}>{text}</a>
   }
-  return <span>{text}</span>
+  return <span className={style}>{text}</span>
 }
 
 function buildText (concept) {
