@@ -103,3 +103,11 @@ td > .fa {
   content: "\f06a";
   color: #bf0000;
 }
+
+/* Render 'code' elements in black and respecting the background color: */
+code {
+  color: black;
+  background: rgba(0, 0, 0, 0);
+  padding-left: 0;
+  padding-right: 0;
+}
