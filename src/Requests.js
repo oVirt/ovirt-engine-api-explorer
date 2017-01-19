@@ -57,8 +57,7 @@ export default class Requests extends Component {
 
         <table className='datatable table table-striped table-bordered'>
           <colgroup>
-            <col style={{width: '10%'}}/>
-            <col style={{width: '90%'}}/>
+            <col style={{width: '100%'}}/>
           </colgroup>
           <thead>
             <tr>
