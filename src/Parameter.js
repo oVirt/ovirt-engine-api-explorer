@@ -19,7 +19,7 @@ import Doc from 'Doc'
 import Names from 'Names'
 import * as concepts from 'concepts'
 
-export default function Parameter ({ params: { serviceId, methodId, parameterId } }) {
+export default function Parameter ({ match: { params: { serviceId, methodId, parameterId } } }) {
   // Find the service:
   const services = document.model.services
   const service = concepts.Concept.find(services, serviceId)

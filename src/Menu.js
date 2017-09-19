@@ -15,42 +15,25 @@ limitations under the License.
 */
 
 import React from 'react'
-import * as concepts from 'concepts'
 
-function Item ({ doc }) {
-  let href = '#/documents/' + doc.id
+export default function Menu () {
   return (
-    <li>
-      <a href={href}>
-        <i className='fa fa-book'></i>
-        {doc.title}
-      </a>
-    </li>
+    <ul className='list-group'>
+      <Item icon='book' path='documents' title='Documents'/>
+      <Item icon='send-o' path='requests' title='Requests'/>
+      <Item icon='cog' path='services' title='Services'/>
+      <Item icon='file-text-o' path='types' title='Types'/>
+    </ul>
   )
 }
 
-export default function Menu () {
-  // Create the list of items:
-  const docs = document.model.documents.slice(0)
-  const items = docs
-    .sort(concepts.Concept.compare)
-    .map((doc) => <Item key={doc.id} doc={doc}/>)
-
-  // Render the menu:
+function Item ({ icon, path, title }) {
   return (
-    <div>
-      <div className='nav-category'>
-        <h2>Documents</h2>
-        <ul className='nav nav-pills nav-stacked'>{items}</ul>
-      </div>
-      <div className='nav-category'>
-        <h2>Reference</h2>
-        <ul className='nav nav-pills nav-stacked'>
-          <li><a href='#/requests'><i className='fa fa-send-o'></i>Requests</a></li>
-          <li><a href='#/services'><i className='fa fa-cog'></i>Services</a></li>
-          <li><a href='#/types'><i className='fa fa-file-text-o'></i>Types</a></li>
-        </ul>
-      </div>
-    </div>
+    <li className='list-group-item'>
+      <a href={'#/' + path}>
+        <span className={'fa fa-' + icon} title={title}/>
+        <span className='list-group-item-value'>{title}</span>
+      </a>
+    </li>
   )
 }

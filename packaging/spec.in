@@ -10,8 +10,7 @@ BuildArch: noarch
 
 BuildRequires: ovirt-engine-nodejs
 BuildRequires: ovirt-engine-nodejs-modules
-
-Requires: patternfly1
+BuildRequires: ovirt-engine-yarn
 
 %description
 This package contains the oVirt Engine API explorer.
@@ -25,13 +24,13 @@ This package contains the oVirt Engine API explorer.
 . %{_datadir}/ovirt-engine-nodejs-modules/setup-env.sh
 
 # Build the application:
-webpack
+yarn build
 
 %install
 
 # Install the files:
 mkdir -p %{buildroot}%{_datadir}/%{name}
-cp -r static/* %{buildroot}%{_datadir}/%{name}
+cp -r build/* %{buildroot}%{_datadir}/%{name}
 
 %files
 %{_datadir}/%{name}

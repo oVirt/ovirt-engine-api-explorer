@@ -341,4 +341,3 @@ export class Model extends Concept {
  */
 export class Document extends Concept {
 }
-

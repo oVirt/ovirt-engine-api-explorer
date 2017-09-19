@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the 'License');
 you may not use this file except in compliance with the License.
@@ -14,43 +14,72 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var path = require('path')
+const path = require('path')
+
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+const modDir = path.resolve(__dirname, 'node_modules')
+const srcDir = path.resolve(__dirname, 'src')
+const rscDir = path.resolve(__dirname, 'static')
+const outDir = path.resolve(__dirname, 'build')
 
 module.exports = {
-  entry: __dirname + '/src/main.js',
+  entry: path.resolve(srcDir, 'main.js'),
   output: {
-    path: __dirname + '/static',
-    filename: 'index.js',
+    path: outDir,
+    filename: 'main.js'
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015'],
-        },
+        exclude: [
+          /node_modules/
+        ],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              'env',
+              'react'
+            ]
+          }
+        }
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader',
-      },
-    ],
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
+    ]
   },
 
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: rscDir, to: outDir }
+    ])
+  ],
+
   resolve: {
-    root: [
-      path.resolve('./src'),
-    ],
+    modules: [
+      srcDir,
+      modDir
+    ]
   },
 
   devServer: {
-    contentBase: './static',
-    colors: true,
-    historyApiFallback: true,
+    contentBase: outDir,
+    outputPath: outDir,
     inline: true,
     port: 8000,
-  },
+    proxy: {
+      '/ovirt-engine/apidoc/model.json': {
+        target: 'http://engine42.local',
+        secure: false
+      }
+    }
+  }
 }

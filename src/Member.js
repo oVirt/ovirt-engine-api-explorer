@@ -19,7 +19,7 @@ import Doc from 'Doc'
 import Names from 'Names'
 import * as concepts from 'concepts'
 
-export default function Member ({ params: { typeId, memberId } }) {
+export default function Member ({ match: { params: { typeId, memberId } } }) {
   // Find the declaring type:
   const types = document.model.types
   const declaringType = concepts.Concept.find(types, typeId)

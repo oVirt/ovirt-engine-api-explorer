@@ -35,7 +35,7 @@ function MemberRow ({ member }) {
   return (
     <tr>
       <td>
-        <i className={'fa fa-' + icon}></i>
+        <i className={'fa fa-' + icon}/>
         <Link concept={member}/>
         <Since concept={member}/>
       </td>

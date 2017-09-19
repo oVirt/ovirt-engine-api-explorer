@@ -97,7 +97,7 @@ function Locators ({ locators }) {
 export default class Service extends Component {
   render () {
     // Find the service:
-    const serviceId = this.props.params.serviceId
+    const serviceId = this.props.match.params.serviceId
     const services = document.model.services
     const service = concepts.Concept.find(services, serviceId)
 

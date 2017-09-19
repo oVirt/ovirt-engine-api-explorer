@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Red Hat, Inc.
+Copyright (c) 2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+/* Use a custom background image for the navigation bar, and a change the line at the top so that it
+   maches the color of the image: */
+.navbar {
+  background-image: url(images/masthead_bg.png);
+  background-size: cover;
+}
+
+.navbar-pf-vertical {
+ border-top:4px solid #00659c !important
+}
+
+/* This is needed to position the masthead icon in the center of the navigation bar: */
+.navbar-brand-icon {
+  position: relative;
+  top: 6px;
+}
 
 /* Make the links inside table cells black: */
 .datatable tbody tr td a {

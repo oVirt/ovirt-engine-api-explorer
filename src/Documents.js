@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2016-2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,25 +15,25 @@ limitations under the License.
 */
 
 import React from 'react'
-import Enum from 'Enum'
-import Primitive from 'Primitive'
-import Struct from 'Struct'
 import * as concepts from 'concepts'
+import Link from 'Link'
 
-export default function Type ({ match: { params: { typeId } } }) {
-  const types = document.model.types
-  const type = concepts.Concept.find(types, typeId)
-  let detail = ''
-  if (type instanceof concepts.PrimitiveType) {
-    detail = <Primitive type={type}/>
-  }
-  else if (type instanceof concepts.EnumType) {
-    detail = <Enum type={type}/>
-  }
-  else if (type instanceof concepts.StructType) {
-    detail = <Struct type={type}/>
-  }
+export default function Documents () {
+  const docs = document.model.documents.slice(0)
+  const rows = docs
+    .sort(concepts.Concept.compare)
+    .map((doc) => <Row key={doc.id} doc={doc}/>)
+
   return (
-    <div>{detail}</div>
+    <div>
+      <h1>Documents</h1>
+      <div>{rows}</div>
+    </div>
+  )
+}
+
+function Row ({ doc }) {
+  return (
+    <div><Link concept={doc}/></div>
   )
 }

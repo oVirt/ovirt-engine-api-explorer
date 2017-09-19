@@ -20,10 +20,10 @@ limitations under the License.
 
 import React from 'react'
 import { render } from 'react-dom'
-import { Redirect, Router, Route, useRouterHistory } from 'react-router'
-import { createHashHistory } from 'history'
+import { HashRouter, Route, Redirect, Switch } from 'react-router-dom'
 
 import Document from 'Document'
+import Documents from 'Documents'
 import Member from 'Member'
 import Menu from 'Menu'
 import Method from 'Method'
@@ -37,21 +37,22 @@ import { analyzeModel } from 'analyzer'
 import * as concepts from 'concepts'
 
 // Load styles:
-import '../node_modules/highlight.js/styles/idea.css'
+import 'highlight.js/styles/idea.css'
+
+// Initialize the vertical navigation:
+$(document).ready(function () {
+  $().setupVerticalNavigation(true)
+})
 
 // Download the model from the server, and when it is ready render the
 // application:
-$.getJSON('model.json', function (data) {
+$.getJSON('/ovirt-engine/apidoc/model.json', function (data) {
   document.model = analyzeModel(data)
 
   // Find the identifier of the first document, as that will be used as
   // the home page:
   const docs = document.model.documents.slice(0)
   const home = docs.sort(concepts.Concept.compare)[0]
-
-  // This is needed in order to avoid the "_k=.." added by default when
-  // using the ReactJS router module:
-  const history = useRouterHistory(createHashHistory)({ queryKey: false })
 
   // Render the menu:
   render((
@@ -60,18 +61,21 @@ $.getJSON('model.json', function (data) {
 
   // Render the main content area:
   render((
-    <Router history={history}>
-      <Route path='/documents/:docId' component={Document}/>
-      <Route path='/types' component={Types}/>
-      <Route path='/types/:typeId' component={Type}/>
-      <Route path='/types/:typeId/attributes/:memberId' component={Member}/>
-      <Route path='/types/:typeId/links/:memberId' component={Member}/>
-      <Route path='/services' component={Services}/>
-      <Route path='/services/:serviceId' component={Service}/>
-      <Route path='/services/:serviceId/methods/:methodId' component={Method}/>
-      <Route path='/services/:serviceId/methods/:methodId/parameters/:parameterId' component={Parameter}/>
-      <Route path='/requests' component={Requests}/>
-      <Redirect from='*' to={'/documents/' + home.id}/>
-    </Router>
+    <HashRouter>
+      <Switch>
+        <Route exact path='/documents' component={Documents}/>
+        <Route exact path='/documents/:docId' component={Document}/>
+        <Route exact path='/types' component={Types}/>
+        <Route exact path='/types/:typeId' component={Type}/>
+        <Route exact path='/types/:typeId/attributes/:memberId' component={Member}/>
+        <Route exact path='/types/:typeId/links/:memberId' component={Member}/>
+        <Route exact path='/services' component={Services}/>
+        <Route exact path='/services/:serviceId' component={Service}/>
+        <Route exact path='/services/:serviceId/methods/:methodId' component={Method}/>
+        <Route exact path='/services/:serviceId/methods/:methodId/parameters/:parameterId' component={Parameter}/>
+        <Route exact path='/requests' component={Requests}/>
+        <Redirect from='*' to={'/documents/' + home.id}/>
+      </Switch>
+    </HashRouter>
   ), document.getElementById('content'))
 })

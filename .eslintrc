@@ -5,9 +5,9 @@
     "$": true
   },
   "rules": {
-    "brace-style": [2, "stroustrup"],
-    "comma-dangle": [2, "always-multiline"],
-    "react/jsx-space-before-closing": [2, "never"],
+    "brace-style": ["error", "stroustrup"],
+    "comma-dangle": ["error", "always-multiline"],
+    "react/jsx-space-before-closing": ["error", "never"],
     "react/prop-types": 0, // TODO: provide prop types for all react components and remove this override
   }
 }

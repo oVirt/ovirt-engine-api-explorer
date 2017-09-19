@@ -21,7 +21,7 @@ import * as concepts from 'concepts'
 export default class Document extends Component {
   render () {
     // Find the document:
-    const id = this.props.params.docId
+    const id = this.props.match.params.docId
     const doc = concepts.Concept.find(document.model.documents, id)
 
     // Return a doc component:

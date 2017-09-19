@@ -1,6 +1,8 @@
+*.gz
 *.iml
 *.log
+*.spec
 .idea
+build/
+exported-artifacts/
 node_modules/
-static/index.js
-static/model.json

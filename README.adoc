@@ -7,28 +7,40 @@ of the oVirt API.
 
 == Using with a live server
 
-In the future this application will be part of the server, and available from
-a URL like `/ovirt-engine/api/explorer`, but at the moment it isn't. See
+In the future this application will be part of the server, and available
+from a URL like `/ovirt-engine/apidoc`, but at the moment it isn't. See
 the instructions bellow to use it locally.
 
 == Using locally
 
-To use the application locally place a `model.json` file containing the
-description of the API in the `static` directory. This file can be obtained
-from a live oVirt server from the `/ovirt-engine/api/model.json` URL.
+To use the application locally update the `webconfig.config.js` file to
+point the proxy to the URL of your engine:
 
-Once you have the `model.json` file in place start a simple web server using
-the following command:
+[source,javascript]
+----
+proxy: {
+  '/ovirt-engine/apidoc/model.json': {
+    target: 'http://yourengine.example.com',
+    ...
+  }
+}
+----
 
-  $ npm start
+The application will use that proxy to download the `model.json` that
+describes the API from your server.
 
-This assumes that you have the `npm` tool installed. If you don't have it, check
-the documentation https://docs.npmjs.com/getting-started/installing-node[here].
+Then start the webpack development server:
 
-The web server will bind to port 8000 of the `localhost` address, so to test
-the application just point your browser to http://localhost:8000.
+  $ yarn start
+
+This assumes that you have the `yarn` tool installed. If you don't have it, check
+the documentation https://yarnpkg.com/lang/en/docs/install[here].
+
+The webpack development server will bind to port 8000 of the `localhost`
+address, so to test the application just point your browser to
+http://localhost:8000.
 
 During development you can also use the following command to run tests and
 static analysis on the code:
 
-  $ npm test
+  $ yarn test
