@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 const path = require('path')
+const webpack = require('webpack')
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -25,6 +26,7 @@ const outDir = path.resolve(__dirname, 'build')
 
 module.exports = {
   entry: path.resolve(srcDir, 'main.js'),
+
   output: {
     path: outDir,
     filename: 'main.js'
@@ -58,6 +60,15 @@ module.exports = {
   },
 
   plugins: [
+    // Some of the libraries that we use, like bootstrap, datatables.net and patternfly, assume that
+    // jQuery is loaded and available globally, so we need to make sure that we replace references
+    // to the '$' and 'jQuery' names with references to the module loade by webpack.
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery'
+    }),
+
+    // Copy the static files to the output directory:
     new CopyWebpackPlugin([
       { from: rscDir, to: outDir }
     ])

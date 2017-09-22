@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2016-2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,6 +18,13 @@ limitations under the License.
  * @file This file contains the main module of the application.
  */
 
+// These aren't directly required in this file, but they are indirectly
+// needed by some of the styles used in the application:
+import 'bootstrap'
+import 'datatables.net'
+import 'patternfly/dist/js/patternfly.min.js'
+
+import $ from 'jquery'
 import React from 'react'
 import { render } from 'react-dom'
 import { HashRouter, Route, Redirect, Switch } from 'react-router-dom'
