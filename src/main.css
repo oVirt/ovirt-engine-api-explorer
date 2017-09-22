@@ -22,13 +22,18 @@ limitations under the License.
 }
 
 .navbar-pf-vertical {
- border-top:4px solid #00659c !important
+  border-top: 4px solid #00659c !important;
 }
 
-/* This is needed to position the masthead icon in the center of the navigation bar: */
+/* The size of the box for the icon is adjusted so that the icon is completely visible: */
 .navbar-brand-icon {
   position: relative;
   top: 6px;
+  background-image: url(images/masthead_logo.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 272px;
+  height: 16px;
 }
 
 /* Make the links inside table cells black: */

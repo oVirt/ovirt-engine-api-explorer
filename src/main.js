@@ -22,7 +22,13 @@ limitations under the License.
 // needed by some of the styles used in the application:
 import 'bootstrap'
 import 'datatables.net'
-import 'patternfly/dist/js/patternfly.min.js'
+import 'patternfly/dist/js/patternfly.min'
+
+// Load styles:
+import 'main.css'
+import 'patternfly/dist/css/patternfly.min.css'
+import 'patternfly/dist/css/patternfly-additions.min.css'
+import 'highlight.js/styles/idea.css'
 
 import $ from 'jquery'
 import React from 'react'
@@ -42,9 +48,6 @@ import Type from 'Type'
 import Types from 'Types'
 import { analyzeModel } from 'analyzer'
 import * as concepts from 'concepts'
-
-// Load styles:
-import 'highlight.js/styles/idea.css'
 
 // Initialize the vertical navigation:
 $(document).ready(function () {
