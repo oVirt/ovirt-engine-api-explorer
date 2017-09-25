@@ -37,7 +37,7 @@ function Row ({ service }) {
 export default class Services extends Component {
   render () {
     // Create the list of rows:
-    const services = document.model.services.slice(0)
+    const services = this.props.model.services.slice(0)
     const rows = services
       .sort(concepts.Concept.compare)
       .map((service) => <Row key={service.id} service={service}/>)

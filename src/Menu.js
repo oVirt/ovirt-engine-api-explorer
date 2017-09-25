@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Red Hat, Inc.
+Copyright (c) 2016-2017 Red Hat, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@ import React from 'react'
 
 export default function Menu () {
   return (
-    <ul className='list-group'>
-      <Item icon='book' path='documents' title='Documents'/>
-      <Item icon='send-o' path='requests' title='Requests'/>
-      <Item icon='cog' path='services' title='Services'/>
-      <Item icon='file-text-o' path='types' title='Types'/>
-    </ul>
+    <div className='nav-pf-vertical nav-pf-vertical-with-sub-menus'>
+      <ul className='list-group'>
+        <Item icon='book' path='documents' title='Documents'/>
+        <Item icon='send-o' path='requests' title='Requests'/>
+        <Item icon='cog' path='services' title='Services'/>
+        <Item icon='file-text-o' path='types' title='Types'/>
+      </ul>
+    </div>
   )
 }
 

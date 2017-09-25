@@ -18,8 +18,8 @@ import React from 'react'
 import * as concepts from 'concepts'
 import Link from 'Link'
 
-export default function Documents () {
-  const docs = document.model.documents.slice(0)
+export default function Documents ({ model }) {
+  const docs = model.documents.slice(0)
   const rows = docs
     .sort(concepts.Concept.compare)
     .map((doc) => <Row key={doc.id} doc={doc}/>)

@@ -20,9 +20,7 @@ import Primitive from 'Primitive'
 import Struct from 'Struct'
 import * as concepts from 'concepts'
 
-export default function Type ({ match: { params: { typeId } } }) {
-  const types = document.model.types
-  const type = concepts.Concept.find(types, typeId)
+export default function Type ({ type }) {
   let detail = ''
   if (type instanceof concepts.PrimitiveType) {
     detail = <Primitive type={type}/>

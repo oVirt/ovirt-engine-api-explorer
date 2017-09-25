@@ -84,12 +84,7 @@ function ParametersTable (props) {
 export default class Method extends Component {
   render () {
     // Find the method:
-    const serviceId = this.props.match.params.serviceId
-    const methodId = this.props.match.params.methodId
-    const services = document.model.services
-    const service = concepts.Concept.find(services, serviceId)
-    const methods = service.methods
-    const method = concepts.Concept.find(methods, methodId)
+    const method = this.props.method
     const parameters = method.parameters
 
     // Calculate the summary:

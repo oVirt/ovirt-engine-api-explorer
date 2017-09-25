@@ -37,7 +37,7 @@ function Row ({ type }) {
 export default class Types extends Component {
   render () {
     // Create the list of rows:
-    const types = document.model.types.slice(0)
+    const types = this.props.model.types.slice(0)
     const rows = types
       .sort(concepts.Concept.compare)
       .map((type) => <Row key={type.id} type={type}/>)

@@ -17,20 +17,8 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 import Names from 'Names'
-import * as concepts from 'concepts'
 
-export default function Member ({ match: { params: { typeId, memberId } } }) {
-  // Find the declaring type:
-  const types = document.model.types
-  const declaringType = concepts.Concept.find(types, typeId)
-
-  // Try to find an attribute or link with the given identifier:
-  let member = concepts.Concept.find(declaringType.attributes, memberId)
-  if (member == null) {
-    member = concepts.Concept.find(declaringType.links, memberId)
-  }
-
-  // Render the member:
+export default function Member ({ member }) {
   return (
     <div>
       <h2>{Names.render(member)}</h2>

@@ -39,7 +39,7 @@ function Row ({ point }) {
 export default class Requests extends Component {
   render () {
     // Create the list of rows:
-    const points = document.model.points
+    const points = this.props.model.points
     let key = 0
     const rows = points
       .map((point) => <Row key={key++} point={point}/>)

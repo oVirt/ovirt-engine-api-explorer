@@ -25,11 +25,11 @@ const rscDir = path.resolve(__dirname, 'static')
 const outDir = path.resolve(__dirname, 'build')
 
 module.exports = {
-  entry: path.resolve(srcDir, 'main.js'),
+  entry: path.resolve(srcDir, 'index.js'),
 
   output: {
     path: outDir,
-    filename: 'main.js'
+    filename: 'index.js'
   },
 
   module: {
@@ -100,11 +100,5 @@ module.exports = {
     outputPath: outDir,
     inline: true,
     port: 8000,
-    proxy: {
-      '/ovirt-engine/apidoc/model.json': {
-        target: 'http://engine42.local',
-        secure: false
-      }
-    }
   }
 }

@@ -17,20 +17,8 @@ limitations under the License.
 import React from 'react'
 import Doc from 'Doc'
 import Names from 'Names'
-import * as concepts from 'concepts'
 
-export default function Parameter ({ match: { params: { serviceId, methodId, parameterId } } }) {
-  // Find the service:
-  const services = document.model.services
-  const service = concepts.Concept.find(services, serviceId)
-
-  // Find the method:
-  const method = concepts.Concept.find(service.methods, methodId)
-
-  // Find the parameter:
-  const parameter = concepts.Concept.find(method.parameters, parameterId)
-
-  // Render the parameter:
+export default function Parameter ({ parameter }) {
   return (
     <div>
       <h2>{Names.render(parameter)}</h2>
