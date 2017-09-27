@@ -14,18 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react'
+import $ from 'jquery'
+import React, { Component } from 'react'
 
 import Content from 'Content'
 import Head from 'Head'
 import Menu from 'Menu'
 
-export default function App ({ model }) {
-  return (
-    <div>
-      <Head/>
-      <Menu/>
-      <Content model={model}/>
-    </div>
-  )
+export default class App extends Component {
+  render () {
+    return (
+      <div>
+        <Head/>
+        <Menu/>
+        <Content model={this.props.model}/>
+      </div>
+    )
+  }
+
+  componentDidMount () {
+    $().setupVerticalNavigation(true)
+  }
 }

@@ -30,17 +30,11 @@ import 'patternfly/dist/css/patternfly.min.css'
 import 'patternfly/dist/css/patternfly-additions.min.css'
 import 'highlight.js/styles/idea.css'
 
-import $ from 'jquery'
 import React from 'react'
 import { render } from 'react-dom'
 
 import App from 'App'
 import { analyzeModel } from 'analyzer'
-
-// Initialize the vertical navigation:
-$(document).ready(function () {
-  $().setupVerticalNavigation(true)
-})
 
 // Download the model from the server, and when it is ready render the application:
 $.getJSON('model.json', function (data) {
