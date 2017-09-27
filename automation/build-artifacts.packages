@@ -1,4 +1,1 @@
-git
-ovirt-engine-nodejs
-ovirt-engine-yarn
-python
+build.packages
