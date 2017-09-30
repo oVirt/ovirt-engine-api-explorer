@@ -14,24 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-/**
- * @file This file contains the main module of the application.
- */
+// Load libraries:
+import 'datatables.net'
+import 'highlight.js'
+import 'react'
+import 'react-dom'
+import 'react-router-dom'
 
-// Load styles:
-import 'index.css'
-
-import React from 'react'
-import { render } from 'react-dom'
-
-import App from 'App'
-import { analyzeModel } from 'analyzer'
-
-// Download the model from the server, and when it is ready render the application:
-$.getJSON('model.json', function (data) {
-  // Analyze the model:
-  const model = analyzeModel(data)
-
-  // Render the application:
-  render(<App model={model}/>, document.getElementById('app'))
-})
+ // Load styles:
+import 'highlight.js/styles/idea.css'

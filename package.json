@@ -1,6 +1,6 @@
 {
   "name": "ovirt-api-explorer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "oVirt API Explorer",
   "repository": {
     "type": "git",

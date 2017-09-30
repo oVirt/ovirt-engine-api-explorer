@@ -25,7 +25,10 @@ const rscDir = path.resolve(__dirname, 'static')
 const outDir = path.resolve(__dirname, 'build')
 
 module.exports = {
-  entry: path.resolve(srcDir, 'index.js'),
+  entry: {
+    index: path.resolve(srcDir, 'index.js'),
+    dependencies: path.resolve(srcDir, 'dependencies.js')
+  },
 
   output: {
     path: outDir,
@@ -73,13 +76,15 @@ module.exports = {
     ]
   },
 
+  externals: {
+     jquery: 'jQuery'
+  },
+
   plugins: [
-    // Some of the libraries that we use, like bootstrap, datatables.net and patternfly, assume that
-    // jQuery is loaded and available globally, so we need to make sure that we replace references
-    // to the '$' and 'jQuery' names with references to the module loade by webpack.
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery'
+    // Create a separate chunk for dependencies:
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'dependencies',
+      filename: 'dependencies.js'
     }),
 
     // Copy the static files to the output directory:

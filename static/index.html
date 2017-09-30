@@ -6,9 +6,25 @@
   <meta charset="utf-8"/>
   <title>oVirt API Explorer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Load the styles that aren't bundled: -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.27.5/css/patternfly.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.27.5/css/patternfly-additions.min.css">
 </head>
 
 <body>
   <div id="app"></div>
+
+  <!-- This needs to be loaded first, because most of the other scripts depend on it to load correctly: -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Load the scripts and styles that are bundled: -->
+  <script src="dependencies.js"></script>
+
+  <!-- Load the scripts that aren't bundled: -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/patternfly/3.27.5/js/patternfly.min.js"></script>
+
+  <!-- Load the application: -->
   <script src="index.js"></script>
 </html>

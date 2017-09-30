@@ -9,8 +9,11 @@ Source: @TAR_FILE@
 BuildArch: noarch
 
 BuildRequires: ovirt-engine-nodejs
-BuildRequires: ovirt-engine-nodejs-modules == 1.2.0
+BuildRequires: ovirt-engine-nodejs-modules >= 1.2
 BuildRequires: ovirt-engine-yarn
+
+Requires: ovirt-engine >= 4.2
+Requires: ovirt-js-dependencies >= 1.2
 
 %description
 This package contains the oVirt Engine API explorer.
@@ -20,11 +23,27 @@ This package contains the oVirt Engine API explorer.
 # Unpack the source:
 %setup -q -n %{name}-%{version}
 
+%build
+
 # Make sure that we use our Node.js installation:
 . %{_datadir}/ovirt-engine-nodejs-modules/setup-env.sh
 
+# Verify that dependency versions (semver ranges) in package.json have
+# matching resolutions in the yarn.lock file:
+yarn check
+
 # Build the application:
 yarn build
+
+# Modify references to CDN with references to the files provided by the
+# ovirt-js-dependencies package:
+sed -i \
+  -e 's|src=".*/jquery.min.js"|src="dependencies/jquery/dist/jquery.min.js"|' \
+  -e 's|src=".*/bootstrap.min.js"|src="dependencies/bootstrap/dist/js/bootstrap.min.js"|' \
+  -e 's|src=".*/patternfly.min.js"|src="dependencies/patternfly/dist/js/patternfly.min.js"|' \
+  -e 's|href=".*/patternfly.min.css"|href="dependencies/patternfly/dist/css/patternfly.min.css"|' \
+  -e 's|href=".*/patternfly-additions.min.css"|href="dependencies/patternfly/dist/css/patternfly-additions.min.css"|' \
+  build/index.html
 
 %install
 
@@ -32,11 +51,27 @@ yarn build
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -r build/* %{buildroot}%{_datadir}/%{name}
 
+# Create a link to the libraries provided by the ovirt-js-dependenies,
+# so that everything is available in the directory of the application:
+ln -s \
+    "%{_datadir}/ovirt-js-dependencies/" \
+    "%{buildroot}%{_datadir}/%{name}/dependencies"
+
+# Create the engine configuration files that enables the application:
+mkdir -p "%{buildroot}%{_sysconfdir}/ovirt-engine/engine.conf.d"
+cat > "%{buildroot}%{_sysconfdir}/ovirt-engine/engine.conf.d/50-%{name}.conf" <<.
+ENGINE_API_EXPLORER_DIRECTORY="%{_datadir}/%{name}"
+.
+
 %files
-%{_datadir}/%{name}
+%config %{_sysconfdir}/ovirt-engine/engine.conf.d/50-%{name}.conf
 %doc README.adoc
 %license LICENSE.txt
+%{_datadir}/%{name}
 
 %changelog
+* Sat Sep 30 2017 Juan Hernandez <juan.hernandez@redhat.com> - 0.0.1
+- Use dependencies from ovirt-js-dependencies.
+
 * Fri Feb 5 2016 Juan Hernandez <juan.hernandez@redhat.com> - 0.0.0
 - Initial packaging.
