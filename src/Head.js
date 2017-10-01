@@ -27,8 +27,8 @@ export default function Head () {
           <span className='icon-bar'/>
         </button>
         <a className='navbar-brand' href='#/home'>
-          <img className='navbar-brand-icon'/>
-          <img className='navbar-brand-name'/>
+          <img className='navbar-brand-icon' src='images/masthead_icon.svg'/>
+          <img className='navbar-brand-name' src='images/masthead_name.svg'/>
         </a>
       </div>
     </nav>

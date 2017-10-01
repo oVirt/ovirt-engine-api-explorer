@@ -25,15 +25,6 @@ limitations under the License.
   border-top: 2px solid #00659c !important;
 }
 
-/* Use custom logo: */
-.navbar-brand-icon {
-  content: url(images/masthead_icon.svg);
-}
-
-.navbar-brand-name {
-  content: url(images/masthead_name.svg);
-}
-
 /* Make the links inside table cells black: */
 .datatable tbody tr td a {
   color: #333;
