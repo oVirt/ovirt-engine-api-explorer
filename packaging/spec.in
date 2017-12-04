@@ -1,10 +1,12 @@
+%global tar_version 0.0.1
+
 Name: ovirt-engine-api-explorer
 Summary: oVirt Engine API Explorer
-Version: @RPM_VERSION@
-Release: @RPM_RELEASE@
+Version: 0.0.1
+Release: 1
 License: ASL 2.0
 URL: http://www.ovirt.org
-Source: @TAR_FILE@
+Source: %{name}-%{tar_version}.tar.gz
 
 BuildArch: noarch
 
@@ -21,7 +23,7 @@ This package contains the oVirt Engine API explorer.
 %prep
 
 # Unpack the source:
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{tar_version}
 
 %build
 
