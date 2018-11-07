@@ -1,8 +1,8 @@
-%global tar_version 0.0.1
+%global tar_version 0.0.3
 
 Name: ovirt-engine-api-explorer
 Summary: oVirt Engine API Explorer
-Version: 0.0.1
+Version: 0.0.3
 Release: 1
 License: ASL 2.0
 URL: http://www.ovirt.org
@@ -15,7 +15,6 @@ BuildRequires: ovirt-engine-nodejs-modules >= 1.2
 BuildRequires: ovirt-engine-yarn
 
 Requires: ovirt-engine >= 4.2
-Requires: ovirt-js-dependencies >= 1.2
 
 %description
 This package contains the oVirt Engine API explorer.
@@ -37,14 +36,13 @@ yarn check
 # Build the application:
 yarn build
 
-# Modify references to CDN with references to the files provided by the
-# ovirt-js-dependencies package:
+# Modify references to CDN with references to the files provided by ovirt-engine:
 sed -i \
-  -e 's|src=".*/jquery.min.js"|src="dependencies/jquery/dist/jquery.min.js"|' \
-  -e 's|src=".*/bootstrap.min.js"|src="dependencies/bootstrap/dist/js/bootstrap.min.js"|' \
-  -e 's|src=".*/patternfly.min.js"|src="dependencies/patternfly/dist/js/patternfly.min.js"|' \
-  -e 's|href=".*/patternfly.min.css"|href="dependencies/patternfly/dist/css/patternfly.min.css"|' \
-  -e 's|href=".*/patternfly-additions.min.css"|href="dependencies/patternfly/dist/css/patternfly-additions.min.css"|' \
+  -e 's|src=".*/jquery.min.js"|src="../theme/00-ovirt.brand/bundled/jquery/jquery.min.js"|' \
+  -e 's|src=".*/bootstrap.min.js"|src="../theme/00-ovirt.brand/bundled/bootstrap/js/bootstrap.min.js"|' \
+  -e 's|src=".*/patternfly.min.js"|src="../theme/00-ovirt.brand/bundled/patternfly/js/patternfly.min.js"|' \
+  -e 's|href=".*/patternfly.min.css"|href="../theme/00-ovirt.brand/bundled/patternfly/css/patternfly.min.css"|' \
+  -e 's|href=".*/patternfly-additions.min.css"|href="../theme/00-ovirt.brand/bundled/patternfly/css/patternfly-additions.min.css"|' \
   build/index.html
 
 %install
@@ -52,12 +50,6 @@ sed -i \
 # Install the files:
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -r build/* %{buildroot}%{_datadir}/%{name}
-
-# Create a link to the libraries provided by the ovirt-js-dependenies,
-# so that everything is available in the directory of the application:
-ln -s \
-    "%{_datadir}/ovirt-js-dependencies/" \
-    "%{buildroot}%{_datadir}/%{name}/dependencies"
 
 # Create the engine configuration files that enables the application:
 mkdir -p "%{buildroot}%{_sysconfdir}/ovirt-engine/engine.conf.d"
@@ -72,6 +64,10 @@ ENGINE_API_EXPLORER_DIRECTORY="%{_datadir}/%{name}"
 %{_datadir}/%{name}
 
 %changelog
+* Wed Nov 7 2018 Greg Sheremeta <gshereme@redhat.com> - 0.0.3
+- Use dependencies bundled in ovirt-engine (ovirt-js-dependencies
+  is deprecated).
+
 * Sat Sep 30 2017 Juan Hernandez <juan.hernandez@redhat.com> - 0.0.1
 - Use dependencies from ovirt-js-dependencies.
 

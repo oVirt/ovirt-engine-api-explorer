@@ -11,14 +11,14 @@ To build the RPM place the `.tar.gz` file containing the distribution of
 the application in this directory and then run run the `build.sh`
 script, specifying the version with the `tar_version` environment
 variable. For example, if the name of the tar file is
-`ovirt-engine-api-explorer-0.0.1.tar.gz` then use the following command:
+`ovirt-engine-api-explorer-0.0.3.tar.gz` then use the following command:
 
-  $ tar_version=0.0.1 build.sh
+  $ tar_version=0.0.3 build.sh
 
 If the name of the `.tar.gz` file isn't the expected one, you can also
 use the `tar_file` environment variable:
 
-  tar_version=0.0.1 tar_file="mytar.tar.gz" build.sh
+  tar_version=0.0.3 tar_file="mytar.tar.gz" build.sh
 
 The resulting `.rpm` file will be created in the `noarch` subdirectory.
 
