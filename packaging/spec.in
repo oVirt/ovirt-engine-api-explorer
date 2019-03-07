@@ -1,8 +1,8 @@
-%global tar_version 0.0.3
+%global tar_version 0.0.4
 
 Name: ovirt-engine-api-explorer
 Summary: oVirt Engine API Explorer
-Version: 0.0.3
+Version: 0.0.4
 Release: 1
 License: ASL 2.0
 URL: http://www.ovirt.org
@@ -64,6 +64,9 @@ ENGINE_API_EXPLORER_DIRECTORY="%{_datadir}/%{name}"
 %{_datadir}/%{name}
 
 %changelog
+* Thu Mar 7 2019 Greg Sheremeta <gshereme@redhat.com> - 0.0.4
+- fix webpack stacktrace
+
 * Wed Nov 7 2018 Greg Sheremeta <gshereme@redhat.com> - 0.0.3
 - Use dependencies bundled in ovirt-engine (ovirt-js-dependencies
   is deprecated).
