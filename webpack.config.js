@@ -32,7 +32,7 @@ module.exports = {
 
   output: {
     path: outDir,
-    filename: 'index.js'
+    filename: '[name].js'
   },
 
   module: {
@@ -46,8 +46,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              'env',
-              'react'
+              '@babel/preset-env',
+              '@babel/preset-react'
             ]
           }
         }
@@ -80,13 +80,17 @@ module.exports = {
      jquery: 'jQuery'
   },
 
-  plugins: [
-    // Create a separate chunk for dependencies:
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'dependencies',
-      filename: 'dependencies.js'
-    }),
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        dependencies: {
+          filename: '[name].js',
+        }
+      }
+    }
+  },
 
+  plugins: [
     // Copy the static files to the output directory:
     new CopyWebpackPlugin([
       { from: rscDir, to: outDir }
@@ -102,7 +106,6 @@ module.exports = {
 
   devServer: {
     contentBase: outDir,
-    outputPath: outDir,
     inline: true,
     port: 8000,
   }
