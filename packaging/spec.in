@@ -1,8 +1,8 @@
-%global tar_version 0.0.4
+%global tar_version 0.0.5
 
 Name: ovirt-engine-api-explorer
 Summary: oVirt Engine API Explorer
-Version: 0.0.4
+Version: 0.0.5
 Release: 1
 License: ASL 2.0
 URL: http://www.ovirt.org
@@ -64,6 +64,9 @@ ENGINE_API_EXPLORER_DIRECTORY="%{_datadir}/%{name}"
 %{_datadir}/%{name}
 
 %changelog
+* Wed May 16 2019 Ondra Machacek <omachace@redhat.com> - 0.0.5
+- Update to webpack 3.1.11
+
 * Thu Mar 7 2019 Greg Sheremeta <gshereme@redhat.com> - 0.0.4
 - fix webpack stacktrace
 
