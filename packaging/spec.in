@@ -10,7 +10,6 @@ Source: %{name}-%{tar_version}.tar.gz
 
 BuildArch: noarch
 
-BuildRequires: ovirt-engine-nodejs
 BuildRequires: ovirt-engine-nodejs-modules >= 1.2
 BuildRequires: ovirt-engine-yarn
 
