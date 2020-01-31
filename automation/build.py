@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #
@@ -42,7 +42,7 @@ def eval_command(args):
     proc = subprocess.Popen(args, stdout=subprocess.PIPE)
     output, errors = proc.communicate()
     result = proc.wait()
-    return result, output
+    return result, output.decode("utf-8")
 
 
 def dec_version(version):
