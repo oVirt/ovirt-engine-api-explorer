@@ -1,5 +1,10 @@
 = API explorer
 
+== IMPORTANT ==
+
+This project has been obsoleted in oVirt 4.4.3 and it shouldn't be used
+anymore.
+
 == Introduction
 
 This project contains a web application used to explore the the documentation
